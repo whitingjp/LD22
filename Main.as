@@ -76,7 +76,6 @@ package
 		{			
 			super.update();
 			if(st == STATE_PRE) change_state(STATE_GAME);
-			trace("count: "+FP.world.count);
 			if(!FINAL && Input.pressed(Key.E))
 			{
 				if(st == STATE_GAME) change_state(STATE_EDITOR);

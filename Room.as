@@ -85,6 +85,32 @@ package
 			}
 		}
 		
+		public function get_pushblock_array():Array
+		{
+			var ret:Array = new Array();
+			for(var j:int = 0; j<level_data.rows; j++)
+			{				
+				for(var i:int = 0; i<level_data.columns; i++)
+				{
+					var tile:int = level_data.getTile(i, j);
+					if(tile == PUSHBLOCK)
+					{
+						var e:Entity = new PushBlock(Dungeon.key(i, j));
+						e.x = i*TILEW+8;
+						e.y = j*TILEH+8;
+						ret.push(e);
+					}
+				}
+			}
+			return ret;
+		}
+		
+		public function add_pushblock_array(array:Array):void
+		{
+			for(var i:int = 0; i<array.length; i++)
+				FP.world.add(array[i]);
+		}
+		
 		public function make_live():void
 		{
 			var editing:Boolean = Main.st == Main.STATE_EDITOR;

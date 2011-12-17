@@ -30,7 +30,8 @@ package
 			update();
 			current_room.make_live();
 			add(current_room);
-			room_blocks = new Array();
+			room_blocks = master_room.get_pushblock_array();
+			trace("room blocks:"+room_blocks.length);
 		}
 		
 		public static function key(x:int, y:int):String
