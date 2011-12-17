@@ -64,13 +64,14 @@ package
 				}
 				if(collide("push", x+vx*2, y+vy*2)) push_timer = 0;
 				if(collide("solid", x+vx*2, y+vy*2)) push_timer = 0;
+				if(collide("floor", x+vx*2, y+vy*2)) push_timer = 0;
 			}			
 		}
 		
 		public function update_push():void
 		{
 			push_timer--;
-			moveBy(vx, vy, ["solid"]);
+			moveBy(vx, vy, ["solid", "floor"]);
 		}
 		
 		public override function update():void

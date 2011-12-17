@@ -20,7 +20,8 @@ package
 		public static const FLOOR:int = 0;
 		public static const WALL:int = 1;
 		public static const PUSHBLOCK:int = 2;
-		public static const PLAYER:int = 3;
+		public static const TRACK:int = 3;
+		public static const PLAYER:int = 4;		
 		
 		[Embed(source="gfx/editor_tile.png")]
 		public static const EditorTileGfx: Class;		
@@ -31,6 +32,7 @@ package
 		public var level_data:Tilemap;
 		public var static_rows:Array;
 		public var wall_grid:Grid;
+		public var floor_grid:Grid;
 		
 		public function Room()
 		{
@@ -52,6 +54,7 @@ package
 					}	else
 					{
 						var e:Entity = null;
+						var onTrack:Boolean = false;
 						switch(tile)
 						{
 							case PLAYER:
@@ -59,6 +62,7 @@ package
 								break;
 							case PUSHBLOCK:
 								e = new PushBlock();
+								onTrack = true;
 								break;
 							default:
 								static_rows[j].setTile(i, j, tile);
@@ -70,7 +74,10 @@ package
 							e.y = j*TILEH+8;
 							FP.world.add(e);
 							trace("adding");
-							static_rows[j].setTile(i, j, 0);
+							if(onTrack)
+								static_rows[j].setTile(i, j, TRACK);
+							else
+								static_rows[j].setTile(i, j, FLOOR);
 						}
 					}
 				}
@@ -89,8 +96,11 @@ package
 			}		
 			reprocess(editing);
 			wall_grid = new Grid(WIDTH*TILEW, HEIGHT*TILEH, TILEW, TILEH);
+			floor_grid = new Grid(WIDTH*TILEW, HEIGHT*TILEH, TILEW, TILEH);
 			level_data.createGrid([WALL], wall_grid);
-			FP.world.addMask(wall_grid, "solid");			
+			level_data.createGrid([FLOOR,PLAYER], floor_grid);
+			FP.world.addMask(wall_grid, "solid");
+			FP.world.addMask(floor_grid, "floor");
 		}
 		
 		public function make_dead():void
