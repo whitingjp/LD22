@@ -36,8 +36,7 @@ package
 		public var static_rows:Array;
 		public var wall_grid:Grid;
 		public var floor_grid:Grid;
-		public var exits:Array;
-		
+	
 		public function Room(bytes:ByteArray=null)
 		{			
 			level_data = new Tilemap(EditorTileGfx, WIDTH*TILEW, HEIGHT*TILEH, TILEW, TILEH);			
@@ -149,12 +148,6 @@ package
 		public function make_dead():void
 		{
 			static_rows = null;
-		}
-
-		public override function update():void
-		{
-			var dungeon:Dungeon = Dungeon(FP.world);
-			exits = dungeon.find_exits();
 		}
 		
 		public function pack(bytes:ByteArray):void

@@ -14,13 +14,15 @@ package
 		public var sub_rooms:Object;
 		public var current_room:Room;
 		public var room_blocks:Array;
+		public var exits:Array;		
 	
 		public function init():void
 		{			
 			master_room = new Room();
 			sub_rooms = new Object();			
 			current_room = master_room;			
-			unpack(new EmbeddedDungeon() as ByteArray);			
+			unpack(new EmbeddedDungeon() as ByteArray);	
+			exits = new Array;
 			reset();
 		}
 		
@@ -68,12 +70,11 @@ package
 			current_room = master_room;
 		}
 		
-		public function find_exits():Array
+		public function find_exits():void
 		{
 			trace("find_exits()");
 			var i:int;
-			var ret:Array = new Array;
-			for(i=0; i<4; i++) ret[i] = null;
+			for(i=0; i<4; i++) exits[i] = null;
 		
 			// first find this rooms block
 			var block:PushBlock;
@@ -111,14 +112,19 @@ package
 						var by:int = room_blocks[j].y/16;
 						if(ax == bx && ay == by)
 						{
-							ret[i] = room_blocks[j].room_key;
-							trace("found_exit: "+i+":"+ret[i]);
+							exits[i] = room_blocks[j].room_key;
+							trace("found_exit: "+i+":"+exits[i]);
 						}
 					}
 				}
 			}
-			return ret;
-		}
+		}		
+
+		public override function update():void
+		{
+			super.update();
+			find_exits();
+		}		
 		
 		public function pack():ByteArray
 		{

@@ -37,7 +37,7 @@ package
 			if(x<32) side = 3;
 			
 			var dungeon:Dungeon = Dungeon(FP.world);
-			if(dungeon.current_room.exits[side])
+			if(dungeon.exits[side])
 			{
 				sprite.frame = 1;
 				type = "";
