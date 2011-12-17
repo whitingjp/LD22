@@ -13,12 +13,13 @@ package
 		public var master_room:Room;
 		public var sub_rooms:Object;
 		public var current_room:Room;
+		public var room_blocks:Array;
 	
 		public function init():void
 		{			
 			master_room = new Room();
-			sub_rooms = new Object();
-			current_room = master_room;
+			sub_rooms = new Object();			
+			current_room = master_room;			
 			unpack(new EmbeddedDungeon() as ByteArray);			
 			reset();
 		}
@@ -29,6 +30,7 @@ package
 			update();
 			current_room.make_live();
 			add(current_room);
+			room_blocks = new Array();
 		}
 		
 		public static function key(x:int, y:int):String

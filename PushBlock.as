@@ -21,9 +21,9 @@ package
 		public var vy:int;
 		public var stamp:Stamp;
 		public var push_timer:int;
-		public var room:Room;
+		public var room_key:String;
 		
-		public function PushBlock():void
+		public function PushBlock(room_key:String):void
 		{
 			stamp = new Stamp(BlockGfx);
 			stamp.x -= 8;
@@ -33,7 +33,7 @@ package
 			layer = -10;
 			type = "push";
 			push_timer = 0;
-			room = null;
+			this.room_key = room_key;
 		}
 		
 		public function update_wait():void

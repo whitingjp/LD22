@@ -62,8 +62,8 @@ package
 								e = new Player();
 								break;
 							case PUSHBLOCK:
-								e = new PushBlock();
-								onTrack = true;
+								e = new PushBlock(Dungeon.key(i, j));
+								onTrack = true;								
 								break;
 							default:
 								static_rows[j].setTile(i, j, tile);
