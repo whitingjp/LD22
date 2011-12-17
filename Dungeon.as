@@ -11,8 +11,9 @@ package
 		public static const EmbeddedDungeon: Class;		
 	
 		public var current_room:Room;
-		public function Dungeon()
-		{			
+	
+		public function init():void
+		{
 			current_room = new Room();
 			unpack(new EmbeddedDungeon() as ByteArray);			
 			reset();
@@ -21,6 +22,7 @@ package
 		public function reset():void
 		{
 			removeAll();
+			update();
 			current_room.make_live();
 			add(current_room);
 		}

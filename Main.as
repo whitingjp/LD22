@@ -22,7 +22,7 @@ package
 		public static const so:SharedObject = SharedObject.getLocal("LD22", "/");
 		
 		public var dungeon:Dungeon;		
-		public static var state:int;
+		public static var st:int;
 		
 		public function Main()
 		{
@@ -32,11 +32,12 @@ package
 		}
 		
 		public function change_state(_state:int):void
-		{
-			state = _state;
+		{			
+			st = _state;		
+			trace("change_state:"+st);
 			dungeon.reset();
 			
-			switch(state)
+			switch(st)
 			{
 				case STATE_EDITOR: dungeon.add(new RoomEditor(dungeon.current_room));
 				case STATE_GAME:
@@ -46,34 +47,34 @@ package
 						so.flush();
 					}
 					break;
-			}
+			}			
 		}		
 		
 		public override function init():void
 		{
+			super.init();
+			
 			FP.width /= FP.screen.scale;
 			FP.height /= FP.screen.scale;
 			
 			dungeon = new Dungeon();
+			FP.world = dungeon;
+			dungeon.init();
 			if(!FINAL && so.data.dungeon)
 				dungeon.unpack(so.data.dungeon);
-			FP.world = dungeon;
-			
-			change_state(STATE_GAME);
-			
-			super.init();
 		}
 		
 		public override function update():void
 		{
 			super.update();
+			trace("count: "+FP.world.count);
 			if(!FINAL && Input.pressed(Key.E))
 			{
-				if(state == STATE_GAME) change_state(STATE_EDITOR);
+				if(st == STATE_GAME) change_state(STATE_EDITOR);
 				else change_state(STATE_GAME);
 			}
 			
-			if(state == STATE_EDITOR)
+			if(st == STATE_EDITOR)
 			{
 				if(Input.pressed(Key.S)) save();
 				if(Input.pressed(Key.L)) load();
@@ -100,7 +101,7 @@ package
 			function loadComplete(event:Event):void
 			{
 				dungeon.unpack(file.data);
-				change_state(state);
+				change_state(st);
 			}
 		}		
 	}

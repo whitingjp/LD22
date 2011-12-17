@@ -33,7 +33,7 @@ package
 			if(Input.mouseDown)
 			{
 				room.level_data.setTile(mx, my, editTile);
-				room.reprocess();
+				room.reprocess(true);
 			}
 		}
 	}

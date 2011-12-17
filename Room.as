@@ -38,8 +38,9 @@ package
 			make_live();
 		}
 		
-		public function reprocess(editing:Boolean=false):void
+		public function reprocess(editing:Boolean):void
 		{
+			trace("editing:"+editing);
 			for(var j:int = 0; j<level_data.rows; j++)
 			{				
 				for(var i:int = 0; i<level_data.columns; i++)
@@ -65,6 +66,7 @@ package
 							e.x = i*TILEW+8;
 							e.y = j*TILEH+8;
 							FP.world.add(e);
+							trace("adding");
 							static_rows[j].setTile(i, j, 0);
 						}
 					}
@@ -74,7 +76,7 @@ package
 		
 		public function make_live():void
 		{
-			var editing:Boolean = Main.state == Main.STATE_EDITOR;
+			var editing:Boolean = Main.st == Main.STATE_EDITOR;
 			static_rows = new Array();
 			for(var j:int = 0; j<level_data.rows; j++)
 			{
@@ -85,8 +87,7 @@ package
 			reprocess(editing);
 			wall_grid = new Grid(WIDTH*TILEW, HEIGHT*TILEH, TILEW, TILEH);
 			level_data.createGrid([WALL], wall_grid);
-			FP.world.addMask(wall_grid, "solid");
-			trace("count: "+FP.world.count);
+			FP.world.addMask(wall_grid, "solid");			
 		}
 		
 		public function make_dead():void
