@@ -27,5 +27,30 @@ package
 			layer = -10;
 			type = "push";
 		}
+		
+		public override function update():void
+		{
+			var push:int = -1;
+			if(collide("push", x, y+1)) push = 0;
+			if(collide("push", x-1, y)) push = 1;
+			if(collide("push", x, y-1)) push = 2;
+			if(collide("push", x+1, y)) push = 3;
+			
+			switch(push)
+			{
+				case 0:
+					y -= 1;
+					break;
+				case 1:
+					x += 1;
+					break;
+				case 2:
+					y += 1;
+					break;
+				case 3:
+					x -= 1;
+					break;
+			}
+		}
 	}
 }

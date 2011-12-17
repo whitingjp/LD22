@@ -27,7 +27,8 @@ package
 			sprite.x = -8;
 			sprite.y = -18;
 			graphic = sprite;
-			setHitbox(4,4,2,2);			
+			setHitbox(4,4,2,2);
+			type = "push";
 		}
 		
 		public override function update():void
