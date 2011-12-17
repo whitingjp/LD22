@@ -42,10 +42,16 @@ package
 				room.level_data.setTile(mx, my, editTile);
 				room.reprocess(true);
 			}
+			
+			if(Input.pressed(Key.I))
+				room.include_world_blocks = !room.include_world_blocks;
 		}
 		
 		public override function render():void
-		{			
+		{
+			if(room.include_world_blocks)
+				FP.buffer.copyPixels(highlight, highlight.rect, new Point(-8, 20));
+			
 			var dungeon:Dungeon = Dungeon(FP.world);
 			if(dungeon.current_room != dungeon.master_room) return;
 			for(var i:int=0; i<Room.WIDTH; i++)

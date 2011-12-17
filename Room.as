@@ -85,6 +85,12 @@ package
 					}
 				}
 			}
+			
+			if(!editing && include_world_blocks)
+			{
+				var dungeon:Dungeon = Dungeon(FP.world);
+				add_pushblock_array(dungeon.room_blocks);
+			}
 		}
 		
 		public function get_pushblock_array():Array
@@ -123,7 +129,7 @@ package
 				static_rows[j].y = j*16-(editing ? 0 : 8);
 				FP.world.addGraphic(static_rows[j], -static_rows[j].y-6);
 			}		
-			reprocess(editing);
+			reprocess(editing);			
 			wall_grid = new Grid(WIDTH*TILEW, HEIGHT*TILEH, TILEW, TILEH);
 			floor_grid = new Grid(WIDTH*TILEW, HEIGHT*TILEH, TILEW, TILEH);
 			level_data.createGrid([WALL], wall_grid);
