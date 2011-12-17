@@ -62,8 +62,13 @@ package
 			dungeon = new Dungeon();
 			FP.world = dungeon;
 			dungeon.init();
-			if(!FINAL && so.data.dungeon)
-				dungeon.unpack(so.data.dungeon);			
+			if(!FINAL)
+			{
+				if(so.data.dungeon) dungeon.unpack(so.data.dungeon);
+				FP.console.enable();
+				FP.console.toggleKey = Key.Q;
+			}
+			
 		}
 		
 		public override function update():void
