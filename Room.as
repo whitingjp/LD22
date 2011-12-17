@@ -36,6 +36,8 @@ package
 		public var static_rows:Array;
 		public var wall_grid:Grid;
 		public var floor_grid:Grid;
+		
+		public var valid_exits:int;
 	
 		public function Room(bytes:ByteArray=null)
 		{			
@@ -44,9 +46,29 @@ package
 			make_live();
 		}
 		
-		public function reprocess(editing:Boolean):void
+		public function calculate_valid_exits():void
 		{
-			trace("editing:"+editing);
+			valid_exits = 0;
+			var i:int;
+			
+			for(i=0; i<level_data.columns; i++)
+				if(level_data.getTile(i, 0) == FLOOR)
+				  valid_exits |= 1;
+			for(i=0; i<level_data.rows; i++)
+				if(level_data.getTile(WIDTH-1, i) == FLOOR)
+				  valid_exits |= 2;
+			for(i=0; i<level_data.columns; i++)
+				if(level_data.getTile(i, HEIGHT-1) == FLOOR)
+				  valid_exits |= 4;
+			for(i=0; i<level_data.rows; i++)
+				if(level_data.getTile(0, i) == FLOOR)
+				  valid_exits |= 8;					
+		}
+		
+		public function reprocess(editing:Boolean):void
+		{						
+			calculate_valid_exits();
+			
 			for(var j:int = 0; j<level_data.rows; j++)
 			{				
 				for(var i:int = 0; i<level_data.columns; i++)
