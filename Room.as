@@ -37,14 +37,10 @@ package
 			make_live();
 		}
 		
-		public function make_live():void
-		{
-			static_rows = new Array();			
+		public function reprocess():void
+		{			
 			for(var j:int = 0; j<level_data.rows; j++)
-			{
-				static_rows[j] = new Tilemap(StaticTileGfx, WIDTH*TILEW, 24, TILEW, 24);
-				static_rows[j].y = j*16-8;
-				addGraphic(static_rows[j]);
+			{				
 				for(var i:int = 0; i<level_data.columns; i++)
 				{
 					var tile:uint = level_data.getTile(i, j);
@@ -53,9 +49,26 @@ package
 						default:
 							static_rows[j].setTile(i, j, tile);
 							break;
-					}					
+					}
 				}
+			}
+		}
+		
+		public function make_live():void
+		{
+			static_rows = new Array();
+			for(var j:int = 0; j<level_data.rows; j++)
+			{				
+				static_rows[j] = new Tilemap(StaticTileGfx, WIDTH*TILEW, 24, TILEW, 24);
+				static_rows[j].y = j*16-8;
+				addGraphic(static_rows[j]);
 			}		
+			reprocess();
+		}
+		
+		public function make_dead():void
+		{
+			static_rows = null;
 		}
 	}	
 }
