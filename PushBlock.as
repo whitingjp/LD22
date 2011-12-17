@@ -28,6 +28,9 @@ package
 		public var room_key:String;
 		public var anim_timer:int;
 		
+		public var decided_can_move:Boolean;
+		public var can_move:Boolean = false;
+		
 		public function PushBlock(room_key:String=null):void
 		{
 			stamp = new Stamp(BlockGfx);
@@ -46,10 +49,14 @@ package
 			type = "push";
 			push_timer = 0;
 			this.room_key = room_key;
+			
+			decided_can_move = false;
 		}
 		
 		public function update_wait():void
 		{
+			if(!can_move) return;
+			
 			var push:int = -1;			
 			if(collide("player", x, y+1)) push = 0;
 			if(collide("player", x-1, y)) push = 1;
@@ -121,7 +128,24 @@ package
 				overlay.alpha = anim_timer/40.0;
 			else 
 				overlay.alpha = 1;
-		}		
+		}
+		
+		public function update_canmove():void
+		{
+			if(!decided_can_move)
+			{
+				if(!room_key) can_move = true;
+				else
+				{
+					var room:Room = Dungeon(FP.world).sub_rooms[room_key];
+					can_move = !room.has_tile(Room.ORB_OFF);
+				}
+			}
+		
+			var dungeon:Dungeon = Dungeon(FP.world);
+			if(dungeon.current_room == dungeon.sub_rooms[room_key])
+				can_move = !dungeon.typeFirst("orb_off");
+		}
 		
 		public override function update():void
 		{
@@ -131,6 +155,8 @@ package
 			
 			if(room_key) update_overlay();
 			else overlay.alpha = 0;
+			
+			update_canmove();
 		}
 	}
 }

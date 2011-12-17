@@ -153,6 +153,14 @@ package
 			return ret;
 		}
 		
+		public function has_tile(tile:int):Boolean
+		{
+			for(var j:int = 0; j<level_data.rows; j++)
+				for(var i:int = 0; i<level_data.columns; i++)
+					if(level_data.getTile(i, j) == tile) return true;
+			return false;
+		}
+		
 		public function add_pushblock_array(array:Array):void
 		{
 			for(var i:int = 0; i<array.length; i++)
