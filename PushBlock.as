@@ -34,15 +34,16 @@ package
 			type = "push";
 			push_timer = 0;
 			this.room_key = room_key;
-		}
+		}		
 		
 		public function update_wait():void
 		{
-			var push:int = -1;
-			if(collide("push", x, y+1)) push = 0;
-			if(collide("push", x-1, y)) push = 1;
-			if(collide("push", x, y-1)) push = 2;
-			if(collide("push", x+1, y)) push = 3;
+			var push:int = -1;			
+			if(collide("player", x, y+1)) push = 0;
+			if(collide("player", x-1, y)) push = 1;
+			if(collide("player", x, y-1)) push = 2;
+			if(collide("player", x+1, y)) push = 3;
+			trace("push:"+push);
 			
 			if(push != -1)
 			{
@@ -64,7 +65,8 @@ package
 						vx = -2;
 						break;
 				}
-				if(collide("push", x+vx*2, y+vy*2)) push_timer = 0;
+				var e:Entity = collide("push", x+vx*2, y+vy*2);
+				if(e && e != this) push_timer = 0;
 				if(collide("solid", x+vx*2, y+vy*2)) push_timer = 0;
 				if(collide("floor", x+vx*2, y+vy*2)) push_timer = 0;
 			}			
