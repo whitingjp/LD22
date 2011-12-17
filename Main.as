@@ -24,10 +24,13 @@ package
 		{
 			FP.width /= FP.screen.scale;
 			FP.height /= FP.screen.scale;
+			
+			FP.world = new Dungeon();
+			
 			super.init();
 			
 			stage.addEventListener(Event.RESIZE, resizeHandler);
-			resizeHandler();			
+			resizeHandler();
 		}
 		
 		private function resizeHandler (e:Event = null):void
