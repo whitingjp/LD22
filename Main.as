@@ -11,13 +11,13 @@ package
 	
 	public class Main extends Engine
 	{
-		public const SCREENW:int = 320;
-		public const SCREENH:int = 240;
+		public const SCREENW:int = 272;
+		public const SCREENH:int = 208;
 		public function Main()
 		{
 			super(SCREENW*3, SCREENH*3, 60, true);
 			FP.screen.scale = 3;
-			FP.screen.color = 0x333333;
+			FP.screen.color = 0x30362a;
 		}
 		
 		public override function init():void
