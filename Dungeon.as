@@ -9,8 +9,15 @@ package
 		public var current_room:Room;
 		public function Dungeon()
 		{
-			current_room = new Room();
+			current_room = new Room();			
+			reset();
+		}
+		
+		public function reset():void
+		{
+			removeAll();
+			current_room.make_live();
 			add(current_room);
-		}		
+		}
 	}
 }
