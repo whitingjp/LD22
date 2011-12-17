@@ -11,8 +11,8 @@ package
 	
 	public class Main extends Engine
 	{
-		public static const SCREENW:int = 272;
-		public static const SCREENH:int = 208;
+		public static const SCREENW:int = 176;
+		public static const SCREENH:int = 176;
 		
 		public static const STATE_GAME:int = 0;
 		public static const STATE_EDITOR:int = 1;
@@ -29,8 +29,8 @@ package
 		
 		public function Main()
 		{
-			super(SCREENW*3, SCREENH*3, 60, true);
-			FP.screen.scale = 3;
+			super(SCREENW*4, SCREENH*4, 60, true);
+			FP.screen.scale = 4;
 			FP.screen.color = 0x30362a;
 			st = STATE_PRE;
 		}
@@ -66,7 +66,7 @@ package
 			dungeon.init();
 			if(!FINAL)
 			{
-				//if(so.data.dungeon) dungeon.unpack(so.data.dungeon);
+				if(so.data.dungeon) dungeon.unpack(so.data.dungeon);
 				FP.console.enable();
 				FP.console.toggleKey = Key.Q;
 			}			

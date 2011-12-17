@@ -14,8 +14,8 @@ package
 	{
 		public static const TILEW:int = 16;
 		public static const TILEH:int = 16;
-		public static const WIDTH:int = 17;
-		public static const HEIGHT:int = 13;
+		public static const WIDTH:int = 11;
+		public static const HEIGHT:int = 11;
 		
 		public static const FLOOR:int = 0;
 		public static const WALL:int = 1;
