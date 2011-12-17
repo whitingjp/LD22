@@ -10,7 +10,7 @@ package
 	{
 		public var current_room:Room;
 		public function Dungeon()
-		{
+		{			
 			current_room = new Room();			
 			reset();
 		}

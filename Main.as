@@ -19,6 +19,8 @@ package
 		
 		public static const FINAL:Boolean = false;
 		
+		public static const so:SharedObject = SharedObject.getLocal("LD22", "/");
+		
 		public var dungeon:Dungeon;		
 		public var state:int;
 		
@@ -27,7 +29,6 @@ package
 			super(SCREENW*3, SCREENH*3, 60, true);
 			FP.screen.scale = 3;
 			FP.screen.color = 0x30362a;
-			state = STATE_GAME;
 		}
 		
 		public function change_state(state:int):void
@@ -38,6 +39,13 @@ package
 			switch(state)
 			{
 				case STATE_EDITOR: dungeon.add(new RoomEditor(dungeon.current_room));
+				case STATE_GAME:
+					if(!FINAL)
+					{
+						so.data.dungeon = dungeon.pack();
+						so.flush();
+					}
+					break;
 			}
 		}		
 		
@@ -47,7 +55,11 @@ package
 			FP.height /= FP.screen.scale;
 			
 			dungeon = new Dungeon();
-			FP.world = dungeon;						
+			if(!FINAL && so.data.dungeon)
+				dungeon.unpack(so.data.dungeon);
+			FP.world = dungeon;
+			
+			change_state(STATE_GAME);
 			
 			super.init();
 		}
