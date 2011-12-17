@@ -18,6 +18,8 @@ package
 		public var vx:Number = 0;
 		public var vy:Number = 0;
 		public var sprite:Spritemap;
+		public var frame:int = 0;
+		public var dir:int = 0;
 	
 		public function Player():void
 		{
@@ -31,6 +33,10 @@ package
 		
 		public override function update():void
 		{
+			if(Input.pressed(Key.UP)) dir = 0;
+			if(Input.pressed(Key.RIGHT)) dir = 1;
+			if(Input.pressed(Key.DOWN)) dir = 2;
+			if(Input.pressed(Key.LEFT)) dir = 3;
 			vx = int(Input.check(Key.RIGHT))-int(Input.check(Key.LEFT));
 			vy = int(Input.check(Key.DOWN))-int(Input.check(Key.UP));
 			if(vx && vy)
@@ -39,6 +45,13 @@ package
 				vy /= Math.sqrt(2);
 			}
 			moveBy(vx, vy, ["solid"]);
+			if(vx || vy)
+			{				
+				frame=(frame+1)%24;
+				var render_frame:int = frame/12;
+				render_frame += dir*2;
+				sprite.frame = render_frame;
+			}
 		}
 	}
 }
