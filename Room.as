@@ -34,39 +34,39 @@ package
 		
 		public function Room()
 		{
-			level_data = new Tilemap(EditorTileGfx, WIDTH*TILEW, HEIGHT*TILEH, TILEW, TILEH);
-			wall_grid = new Grid(WIDTH*TILEW, HEIGHT*TILEH, TILEW, TILEH);
+			level_data = new Tilemap(EditorTileGfx, WIDTH*TILEW, HEIGHT*TILEH, TILEW, TILEH);			
 			make_live();
 		}
 		
-		public function reprocess():void
+		public function reprocess(editing:Boolean=false):void
 		{
-			var editing:Boolean = Main.state == Main.STATE_EDITOR;
 			for(var j:int = 0; j<level_data.rows; j++)
 			{				
 				for(var i:int = 0; i<level_data.columns; i++)
-				{
+				{					
 					var tile:int = level_data.getTile(i, j);
 					if(editing)
 					{
-						static_rows[j].setTile(i, j, tile);
-						continue;
-					}	
-					var e:Entity = null;
-					switch(tile)
+						static_rows[j].setTile(i, j, tile);						
+					}	else
 					{
-						case PLAYER:
-							e = new Player();
-							break;
-						default:
-							static_rows[j].setTile(i, j, tile);
-							break;
-					}
-					if(e)
-					{
-						e.x = i*TILEW;
-						e.y = i*TILEH;
-						FP.world.add(e);
+						var e:Entity = null;
+						switch(tile)
+						{
+							case PLAYER:
+								e = new Player();
+								break;
+							default:
+								static_rows[j].setTile(i, j, tile);
+								break;
+						}
+						if(e)
+						{
+							e.x = i*TILEW+8;
+							e.y = j*TILEH+8;
+							FP.world.add(e);
+							static_rows[j].setTile(i, j, 0);
+						}
 					}
 				}
 			}
@@ -74,16 +74,19 @@ package
 		
 		public function make_live():void
 		{
+			var editing:Boolean = Main.state == Main.STATE_EDITOR;
 			static_rows = new Array();
 			for(var j:int = 0; j<level_data.rows; j++)
-			{				
-				static_rows[j] = new Tilemap(StaticTileGfx, WIDTH*TILEW, 24, TILEW, 24);
-				static_rows[j].y = j*16-8;
+			{
+				static_rows[j] = new Tilemap(editing ? EditorTileGfx : StaticTileGfx, WIDTH*TILEW, 24, TILEW, 24);
+				static_rows[j].y = j*16-(editing ? 0 : 8);
 				addGraphic(static_rows[j]);
 			}		
-			reprocess();
+			reprocess(editing);
+			wall_grid = new Grid(WIDTH*TILEW, HEIGHT*TILEH, TILEW, TILEH);
 			level_data.createGrid([WALL], wall_grid);
-			FP.world.addMask(wall_grid, "solid");			
+			FP.world.addMask(wall_grid, "solid");
+			trace("count: "+FP.world.count);
 		}
 		
 		public function make_dead():void
