@@ -37,8 +37,26 @@ package
 		public function reset():void
 		{
 			room_blocks = master_room.get_pushblock_array();
-			trace("room blocks:"+room_blocks.length);
+			if(current_room == master_room && Main.st == Main.STATE_GAME)
+				enter_room(find_start_room());
 			room_reset();
+		}
+		
+		public function find_start_room():String
+		{
+			for(var key:String in sub_rooms)
+			{
+				var room:Room = sub_rooms[key];
+				for(var j:int = 0; j<room.level_data.rows; j++)
+				{				
+					for(var i:int = 0; i<room.level_data.columns; i++)
+					{
+						if(room.level_data.getTile(i,j) == Room.PLAYER)
+							return key;
+					}
+				}
+			}
+			return "";
 		}
 		
 		public static function key(x:int, y:int):String
