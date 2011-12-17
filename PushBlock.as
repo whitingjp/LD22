@@ -23,7 +23,7 @@ package
 		public var push_timer:int;
 		public var room_key:String;
 		
-		public function PushBlock(room_key:String):void
+		public function PushBlock(room_key:String=null):void
 		{
 			stamp = new Stamp(BlockGfx);
 			stamp.x -= 8;

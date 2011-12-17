@@ -66,7 +66,7 @@ package
 			dungeon.init();
 			if(!FINAL)
 			{
-				if(so.data.dungeon) dungeon.unpack(so.data.dungeon);
+				//if(so.data.dungeon) dungeon.unpack(so.data.dungeon);
 				FP.console.enable();
 				FP.console.toggleKey = Key.Q;
 			}			

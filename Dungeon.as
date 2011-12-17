@@ -68,6 +68,46 @@ package
 			current_room = master_room;
 		}
 		
+		public function find_exits():Array
+		{
+			var i:int;
+			var ret:Array = new Array;
+			for(i=0; i<4; i++) ret[i] = null;
+		
+			// first find this rooms block
+			var block:PushBlock;
+			for(i=0; i<room_blocks.length; i++)
+			{
+				var r:Room = null;
+				var b:PushBlock = room_blocks[i];
+				if(b) r = sub_rooms[b.room_key];
+				if(r == current_room)
+					block = b;
+			}
+			
+			if(block)
+			{
+				// now find possible exits
+				
+				for(i=0; i<4; i++)
+				{
+					var offx:int = 0;
+					var offy:int = 0;
+					switch(i)
+					{
+						case 0: offy = -16; break;
+						case 1: offx =  16; break;
+						case 2: offy =  16; break;
+						case 3: offx = -16; break;
+					}
+					var col:Entity = collidePoint("push", block.x+offx, block.y+offy);
+					if(col && col is PushBlock)
+						ret[i] = PushBlock(col).room_key;
+				}
+			}
+			return ret;
+		}
+		
 		public function pack():ByteArray
 		{
 			var bytes:ByteArray = new ByteArray();

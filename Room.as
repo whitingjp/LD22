@@ -36,7 +36,7 @@ package
 		public var static_rows:Array;
 		public var wall_grid:Grid;
 		public var floor_grid:Grid;
-		public var exits:int = 0;
+		public var exits:Array;
 		
 		public function Room(bytes:ByteArray=null)
 		{			
@@ -66,7 +66,7 @@ package
 								e = new Player();
 								break;
 							case PUSHBLOCK:
-								e = new PushBlock(Dungeon.key(i, j));
+								e = new PushBlock();
 								onTrack = true;								
 								break;
 							case BLOCKER:
@@ -149,6 +149,12 @@ package
 		public function make_dead():void
 		{
 			static_rows = null;
+		}
+
+		public override function update():void
+		{
+			var dungeon:Dungeon = Dungeon(FP.world);
+			exits = dungeon.find_exits();
 		}
 		
 		public function pack(bytes:ByteArray):void
