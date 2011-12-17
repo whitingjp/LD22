@@ -27,12 +27,13 @@ package
 			sprite.x = -8;
 			sprite.y = -18;
 			graphic = sprite;
-			setHitbox(4,4,2,2);
-			layer = -10;
+			setHitbox(4,4,2,2);			
 		}
 		
 		public override function update():void
 		{
+			layer = -y;
+			
 			if(Input.pressed(Key.UP)) dir = 0;
 			if(Input.pressed(Key.RIGHT)) dir = 1;
 			if(Input.pressed(Key.DOWN)) dir = 2;
@@ -44,7 +45,7 @@ package
 				vx /= Math.sqrt(2);
 				vy /= Math.sqrt(2);
 			}
-			moveBy(vx, vy, ["solid"]);
+			moveBy(vx, vy, ["solid","push"]);
 			if(vx || vy)
 			{				
 				frame=(frame+1)%24;

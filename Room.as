@@ -19,7 +19,7 @@ package
 		
 		public static const FLOOR:int = 0;
 		public static const WALL:int = 1;
-		public static const MOVEABLE:int = 2;
+		public static const PUSHBLOCK:int = 2;
 		public static const PLAYER:int = 3;
 		
 		[Embed(source="gfx/editor_tile.png")]
@@ -56,6 +56,9 @@ package
 						{
 							case PLAYER:
 								e = new Player();
+								break;
+							case PUSHBLOCK:
+								e = new PushBlock();
 								break;
 							default:
 								static_rows[j].setTile(i, j, tile);
