@@ -19,6 +19,8 @@ package
 		
 		public static const FLOOR:int = 0;
 		public static const WALL:int = 1;
+		public static const MOVEABLE:int = 2;
+		public static const PLAYER:int = 3;
 		
 		[Embed(source="gfx/editor_tile.png")]
 		public static const EditorTileGfx: Class;		
@@ -28,27 +30,43 @@ package
 		
 		public var level_data:Tilemap;
 		public var static_rows:Array;
+		public var wall_grid:Grid;
 		
 		public function Room()
 		{
 			level_data = new Tilemap(EditorTileGfx, WIDTH*TILEW, HEIGHT*TILEH, TILEW, TILEH);
-			level_data.setTile(0,0,1);
-			level_data.setTile(0,1,1);
+			wall_grid = new Grid(WIDTH*TILEW, HEIGHT*TILEH, TILEW, TILEH);
 			make_live();
 		}
 		
 		public function reprocess():void
-		{			
+		{
+			var editing:Boolean = Main.state == Main.STATE_EDITOR;
 			for(var j:int = 0; j<level_data.rows; j++)
 			{				
 				for(var i:int = 0; i<level_data.columns; i++)
 				{
-					var tile:uint = level_data.getTile(i, j);
+					var tile:int = level_data.getTile(i, j);
+					if(editing)
+					{
+						static_rows[j].setTile(i, j, tile);
+						continue;
+					}	
+					var e:Entity = null;
 					switch(tile)
 					{
+						case PLAYER:
+							e = new Player();
+							break;
 						default:
 							static_rows[j].setTile(i, j, tile);
 							break;
+					}
+					if(e)
+					{
+						e.x = i*TILEW;
+						e.y = i*TILEH;
+						FP.world.add(e);
 					}
 				}
 			}
@@ -64,6 +82,8 @@ package
 				addGraphic(static_rows[j]);
 			}		
 			reprocess();
+			level_data.createGrid([WALL], wall_grid);
+			FP.world.addMask(wall_grid, "solid");			
 		}
 		
 		public function make_dead():void

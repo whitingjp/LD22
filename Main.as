@@ -22,7 +22,7 @@ package
 		public static const so:SharedObject = SharedObject.getLocal("LD22", "/");
 		
 		public var dungeon:Dungeon;		
-		public var state:int;
+		public static var state:int;
 		
 		public function Main()
 		{
@@ -31,9 +31,9 @@ package
 			FP.screen.color = 0x30362a;
 		}
 		
-		public function change_state(state:int):void
+		public function change_state(_state:int):void
 		{
-			this.state = state;
+			state = _state;
 			dungeon.reset();
 			
 			switch(state)
@@ -102,6 +102,6 @@ package
 				dungeon.unpack(file.data);
 				change_state(state);
 			}
-		}
+		}		
 	}
 }
