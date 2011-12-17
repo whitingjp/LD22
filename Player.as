@@ -14,12 +14,15 @@ package
 	{
 		[Embed(source="gfx/player.png")]
 		public static const PlayerGfx: Class;	
+		
+		public static const ORB_TIMEOUT:int = 300;
 	
 		public var vx:Number = 0;
 		public var vy:Number = 0;
 		public var sprite:Spritemap;
 		public var frame:int = 0;
 		public var dir:int = 0;
+		public var orb_timer:int = 0;
 	
 		public function Player():void
 		{
@@ -76,14 +79,26 @@ package
 				vx /= Math.sqrt(2);
 				vy /= Math.sqrt(2);
 			}
-			moveBy(vx, vy, ["solid","push"]);
-			if(vx || vy)
-			{				
-				frame=(frame+1)%24;
-				var render_frame:int = frame/12;
-				render_frame += dir*2;
-				sprite.frame = render_frame;
+			
+			
+			if(collide("orb_on", x+vx, y+vy))
+				orb_timer = ORB_TIMEOUT;				
+			if(orb_timer)
+			{
+				orb_timer--;
+				var e:Entity = collide("orb_off", x+vx, y+vy)
+				if(e) Orb(e).on = true;
 			}
+			
+			moveBy(vx, vy, ["solid","push","orb_on","orb_off"]);
+			
+			if(vx || vy)
+				frame=(frame+1)%24;
+
+			var render_frame:int = frame/12;
+			render_frame += dir*2;
+			if(orb_timer && orb_timer%12 > 7) render_frame += 8;
+			sprite.frame = render_frame;			
 			
 			check_exiting();
 		}
