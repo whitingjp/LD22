@@ -30,11 +30,11 @@ package
 		{
 			layer = -y;
 			
-			var side:int = 0;
-			if(y<32) side |= 1;
-			if(x>Main.SCREENW-32) side |= 2;
-			if(y>Main.SCREENH-32) side |= 4;
-			if(x<32) side |= 8;
+			var side:int = -1;
+			if(y<32) side = 0;
+			if(x>Main.SCREENW-32) side = 1;
+			if(y>Main.SCREENH-32) side = 2;
+			if(x<32) side = 3;
 			
 			var dungeon:Dungeon = Dungeon(FP.world);
 			if(dungeon.current_room.exits[side])

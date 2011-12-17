@@ -70,6 +70,7 @@ package
 		
 		public function find_exits():Array
 		{
+			trace("find_exits()");
 			var i:int;
 			var ret:Array = new Array;
 			for(i=0; i<4; i++) ret[i] = null;
@@ -80,9 +81,13 @@ package
 			{
 				var r:Room = null;
 				var b:PushBlock = room_blocks[i];
+				if(b) trace("test_block:"+b.room_key);
 				if(b) r = sub_rooms[b.room_key];
 				if(r == current_room)
+				{
 					block = b;
+					trace("found_block:"+b.room_key);
+				}
 			}
 			
 			if(block)
@@ -91,18 +96,25 @@ package
 				
 				for(i=0; i<4; i++)
 				{
-					var offx:int = 0;
-					var offy:int = 0;
+					var ax:int = block.x/16;
+					var ay:int = block.y/16;
 					switch(i)
 					{
-						case 0: offy = -16; break;
-						case 1: offx =  16; break;
-						case 2: offy =  16; break;
-						case 3: offx = -16; break;
+						case 0: ay -= 1; break;
+						case 1: ax += 1; break;
+						case 2: ay += 1; break;
+						case 3: ax -= 1; break;
 					}
-					var col:Entity = collidePoint("push", block.x+offx, block.y+offy);
-					if(col && col is PushBlock)
-						ret[i] = PushBlock(col).room_key;
+					for(var j:int=0; j<room_blocks.length; j++)
+					{
+						var bx:int = room_blocks[j].x/16;
+						var by:int = room_blocks[j].y/16;
+						if(ax == bx && ay == by)
+						{
+							ret[i] = room_blocks[j].room_key;
+							trace("found_exit: "+i+":"+ret[i]);
+						}
+					}
 				}
 			}
 			return ret;
