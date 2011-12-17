@@ -25,9 +25,9 @@ package
 		{
 			sprite = new Spritemap(PlayerGfx, 16, 24);
 			sprite.x = -8;
-			sprite.y = -20;
+			sprite.y = -18;
 			graphic = sprite;
-			setHitbox(4,4,-2,-2);
+			setHitbox(4,4,2,2);
 			layer = -10;
 		}
 		
