@@ -92,7 +92,7 @@ package
 			{
 				static_rows[j] = new Tilemap(editing ? EditorTileGfx : StaticTileGfx, WIDTH*TILEW, 24, TILEW, 24);
 				static_rows[j].y = j*16-(editing ? 0 : 8);
-				FP.world.addGraphic(static_rows[j], -static_rows[j].y-7);
+				FP.world.addGraphic(static_rows[j], -static_rows[j].y-6);
 			}		
 			reprocess(editing);
 			wall_grid = new Grid(WIDTH*TILEW, HEIGHT*TILEH, TILEW, TILEH);

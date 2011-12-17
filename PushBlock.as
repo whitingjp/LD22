@@ -21,6 +21,7 @@ package
 		public var vy:int;
 		public var stamp:Stamp;
 		public var push_timer:int;
+		public var room:Room;
 		
 		public function PushBlock():void
 		{
@@ -32,6 +33,7 @@ package
 			layer = -10;
 			type = "push";
 			push_timer = 0;
+			room = null;
 		}
 		
 		public function update_wait():void
