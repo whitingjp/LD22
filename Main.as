@@ -28,15 +28,6 @@ package
 			FP.world = new Dungeon();
 			
 			super.init();
-			
-			stage.addEventListener(Event.RESIZE, resizeHandler);
-			resizeHandler();
 		}
-		
-		private function resizeHandler (e:Event = null):void
-		{
-			FP.screen.x = (stage.stageWidth - SCREENW*2) * 0.5;
-			FP.screen.y = (stage.stageHeight - SCREENH*2) * 0.5;
-		}		
 	}
 }
