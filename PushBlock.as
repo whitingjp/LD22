@@ -121,6 +121,7 @@ package
 				case 14: frame =  1; break;
 				case 15: frame =  5; break;
 			}
+			if(can_move) frame += 16;
 			overlay.frame = frame;
 			
 			anim_timer = (anim_timer+1)%128;
