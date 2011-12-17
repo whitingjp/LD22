@@ -62,7 +62,10 @@ package
 						switch(tile)
 						{
 							case PLAYER:
-								e = new Player();
+								if(FP.world.typeFirst("player"))
+									static_rows[j].setTile(i, j, FLOOR);
+								else
+									e = new Player();								
 								break;
 							case PUSHBLOCK:
 								e = new PushBlock();

@@ -28,7 +28,7 @@ package
 			sprite.y = -18;
 			graphic = sprite;
 			setHitbox(4,4,2,2);
-			type = "push";
+			type = "player";
 		}
 		
 		public function check_exiting():void
