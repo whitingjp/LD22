@@ -31,6 +31,26 @@ package
 			add(current_room);
 		}
 		
+		public function get_sub_room(x:int, y:int):Room
+		{
+			var key:String = "x:"+x+"y:"+y;
+			return sub_rooms[key];
+		}
+		
+		public function cut_sub_room(x:int, y:int):Room
+		{
+			var key:String = "x:"+x+"y:"+y;
+			var room:Room = sub_rooms[key];
+			sub_rooms[key] = null;
+			return room;
+		}
+		
+		public function set_sub_room(x:int, y:int, room:Room):void
+		{
+			var key:String = "x:"+x+"y:"+y;
+			sub_rooms[key] = room;
+		}		
+		
 		public function enter_room(x:int, y:int):void
 		{
 			var key:String = "x:"+x+"y:"+y;
@@ -51,12 +71,16 @@ package
 			var num_sub_rooms:int = 0;
 			var key:String
 			for(key in sub_rooms)
-				num_sub_rooms++;
+				if(sub_rooms[key])
+					num_sub_rooms++;
 			bytes.writeInt(num_sub_rooms);
 			for(key in sub_rooms)
 			{
-				bytes.writeUTF("key");
-				sub_rooms[key].pack(bytes);
+				if(sub_rooms[key])
+				{
+					bytes.writeUTF("key");
+					sub_rooms[key].pack(bytes);
+				}
 			}
 			return bytes;
 		}
@@ -69,7 +93,7 @@ package
 			for(var i:int=0; i<num_sub_rooms; i++)
 			{
 				var key:String = bytes.readUTF();
-				sub_rooms[key] = bytes.readUTF();
+				sub_rooms[key] = new Room(bytes);
 			}
 		}
 	}

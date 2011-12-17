@@ -25,6 +25,8 @@ package
 		public var dungeon:Dungeon;		
 		public static var st:int;
 		
+		public var cut_room:Room=null;
+		
 		public function Main()
 		{
 			super(SCREENW*3, SCREENH*3, 60, true);
@@ -86,8 +88,24 @@ package
 				if(Input.pressed(Key.S)) save();
 				if(Input.pressed(Key.L)) load();
 				if(Input.pressed(Key.SPACE)) toggle_master();
+				if(Input.check(Key.SHIFT) && Input.pressed(Key.X)) cut_sub_room();
+				if(Input.check(Key.SHIFT) && Input.pressed(Key.V)) paste_sub_room();
 			}
 		}
+		
+		public function cut_sub_room():void
+		{
+			var mx:int = Input.mouseX / Room.TILEW;
+			var my:int = Input.mouseY / Room.TILEW;
+			cut_room = dungeon.cut_sub_room(mx, my);
+		}
+		
+		public function paste_sub_room():void
+		{
+			var mx:int = Input.mouseX / Room.TILEW;
+			var my:int = Input.mouseY / Room.TILEW;
+			dungeon.set_sub_room(mx, my, cut_room);
+		}		
 		
 		public function toggle_master():void
 		{

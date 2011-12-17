@@ -34,9 +34,10 @@ package
 		public var wall_grid:Grid;
 		public var floor_grid:Grid;
 		
-		public function Room()
-		{
+		public function Room(bytes:ByteArray=null)
+		{			
 			level_data = new Tilemap(EditorTileGfx, WIDTH*TILEW, HEIGHT*TILEH, TILEW, TILEH);			
+			if(bytes) unpack(bytes);
 			make_live();
 		}
 		
