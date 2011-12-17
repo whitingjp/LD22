@@ -24,15 +24,19 @@ package
 			reset();
 		}
 		
-		public function reset():void
+		public function room_reset():void
 		{
-			room_blocks = master_room.get_pushblock_array();
-			
 			removeAll();
 			update();
 			current_room.make_live();
-			add(current_room);
+			add(current_room);			
+		}
+		
+		public function reset():void
+		{
+			room_blocks = master_room.get_pushblock_array();
 			trace("room blocks:"+room_blocks.length);
+			room_reset();
 		}
 		
 		public static function key(x:int, y:int):String
