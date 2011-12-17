@@ -70,5 +70,17 @@ package
 		{
 			static_rows = null;
 		}
+		
+		public function pack(bytes:ByteArray):void
+		{
+			var str:String = level_data.saveToString();
+			bytes.writeUTF(str);
+		}
+		
+		public function unpack(bytes:ByteArray):void
+		{
+			var str:String = bytes.readUTF();
+			level_data.loadFromString(str);
+		}
 	}	
 }

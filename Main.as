@@ -59,7 +59,37 @@ package
 			{
 				if(state == STATE_GAME) change_state(STATE_EDITOR);
 				else change_state(STATE_GAME);
-			}		
+			}
+			
+			if(state == STATE_EDITOR)
+			{
+				if(Input.pressed(Key.S)) save();
+				if(Input.pressed(Key.L)) load();
+			}
+		}
+		
+		public function save():void
+		{
+			new FileReference().save(dungeon.pack());			
+		}
+		
+		public function load():void
+		{
+			var file:FileReference = new FileReference();
+			file.addEventListener(Event.SELECT, fileSelect);
+			file.browse();
+			
+			function fileSelect(event:Event):void
+			{
+				file.addEventListener(Event.COMPLETE, loadComplete);
+				file.load();
+			}
+			
+			function loadComplete(event:Event):void
+			{
+				dungeon.unpack(file.data);
+				change_state(state);
+			}
 		}
 	}
 }
