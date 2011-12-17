@@ -14,12 +14,16 @@ package
 	{
 		[Embed(source="gfx/push_block.png")]
 		public static const BlockGfx: Class;
+		
+		[Embed(source="gfx/push_block_overlay.png")]
+		public static const BlockOverlayGfx: Class;
 
 		public static const PUSH_TIME:int = 8;
 		
 		public var vx:int;
 		public var vy:int;
 		public var stamp:Stamp;
+		public var overlay:Spritemap;
 		public var push_timer:int;
 		public var room_key:String;
 		
@@ -28,13 +32,20 @@ package
 			stamp = new Stamp(BlockGfx);
 			stamp.x -= 8;
 			stamp.y -= 8+8;
-			graphic = stamp;
+			addGraphic(stamp);
+			
+			overlay = new Spritemap(BlockOverlayGfx, 16, 16);
+			overlay.frame = 1;
+			overlay.x -= 8;
+			overlay.y -= 8+5;
+			addGraphic(overlay);
+			
 			setHitbox(14,14,7,7);
 			layer = -10;
 			type = "push";
 			push_timer = 0;
 			this.room_key = room_key;
-		}		
+		}
 		
 		public function update_wait():void
 		{
