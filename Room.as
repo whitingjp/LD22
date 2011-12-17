@@ -23,6 +23,8 @@ package
 		public static const TRACK:int = 3;
 		public static const PLAYER:int = 4;		
 		public static const BLOCKER:int = 5;
+		public static const ORB_OFF:int = 6;
+		public static const ORB_ON:int = 7;
 		
 		[Embed(source="gfx/editor_tile.png")]
 		public static const EditorTileGfx: Class;		
@@ -95,6 +97,12 @@ package
 								break;
 							case BLOCKER:
 								e = new Blocker();
+								break;
+							case ORB_OFF:
+								e = new Orb(false);
+								break;
+							case ORB_ON:
+								e = new Orb(true);
 								break;
 							default:
 								static_rows[j].setTile(i, j, tile);
