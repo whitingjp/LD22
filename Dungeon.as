@@ -31,29 +31,25 @@ package
 			add(current_room);
 		}
 		
-		public function get_sub_room(x:int, y:int):Room
+		public static function key(x:int, y:int):String
 		{
-			var key:String = "x:"+x+"y:"+y;
-			return sub_rooms[key];
+			return "x:"+x+"y:"+y;
 		}
 		
-		public function cut_sub_room(x:int, y:int):Room
+		public function cut_sub_room(key:String):Room
 		{
-			var key:String = "x:"+x+"y:"+y;
 			var room:Room = sub_rooms[key];
 			sub_rooms[key] = null;
 			return room;
 		}
 		
-		public function set_sub_room(x:int, y:int, room:Room):void
+		public function set_sub_room(key:String, room:Room):void
 		{
-			var key:String = "x:"+x+"y:"+y;
 			sub_rooms[key] = room;
 		}		
 		
-		public function enter_room(x:int, y:int):void
+		public function enter_room(key:String):void
 		{
-			var key:String = "x:"+x+"y:"+y;
 			if(!sub_rooms[key])
 				sub_rooms[key] = new Room();
 			current_room = sub_rooms[key]			

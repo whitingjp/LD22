@@ -22,7 +22,7 @@ package
 		
 		public static const so:SharedObject = SharedObject.getLocal("LD22", "/");
 		
-		public var dungeon:Dungeon;		
+		public var dungeon:Dungeon;
 		public static var st:int;
 		
 		public var cut_room:Room=null;
@@ -97,14 +97,14 @@ package
 		{
 			var mx:int = Input.mouseX / Room.TILEW;
 			var my:int = Input.mouseY / Room.TILEW;
-			cut_room = dungeon.cut_sub_room(mx, my);
+			cut_room = dungeon.cut_sub_room(Dungeon.key(mx, my));
 		}
 		
 		public function paste_sub_room():void
 		{
 			var mx:int = Input.mouseX / Room.TILEW;
 			var my:int = Input.mouseY / Room.TILEW;
-			dungeon.set_sub_room(mx, my, cut_room);
+			dungeon.set_sub_room(Dungeon.key(mx, my), cut_room);
 		}		
 		
 		public function toggle_master():void
@@ -113,7 +113,7 @@ package
 			{
 				var mx:int = Input.mouseX / Room.TILEW;
 				var my:int = Input.mouseY / Room.TILEW;
-				dungeon.enter_room(mx, my);
+				dungeon.enter_room(Dungeon.key(mx, my));
 			} else
 			{
 				dungeon.exit_room();

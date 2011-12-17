@@ -52,7 +52,7 @@ package
 			{
 				for(var j:int=0; j<Room.HEIGHT; j++)
 				{
-					if(dungeon.get_sub_room(i, j))
+					if(dungeon.sub_rooms[Dungeon.key(i, j)])
 						FP.buffer.copyPixels(highlight, highlight.rect, new Point(i*16, j*16));
 				}
 			}
