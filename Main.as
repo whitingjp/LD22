@@ -67,8 +67,7 @@ package
 				if(so.data.dungeon) dungeon.unpack(so.data.dungeon);
 				FP.console.enable();
 				FP.console.toggleKey = Key.Q;
-			}
-			
+			}			
 		}
 		
 		public override function update():void
@@ -86,7 +85,22 @@ package
 			{
 				if(Input.pressed(Key.S)) save();
 				if(Input.pressed(Key.L)) load();
+				if(Input.pressed(Key.SPACE)) toggle_master();
 			}
+		}
+		
+		public function toggle_master():void
+		{
+			if(dungeon.current_room == dungeon.master_room)
+			{
+				var mx:int = Input.mouseX / Room.TILEW;
+				var my:int = Input.mouseY / Room.TILEW;
+				dungeon.enter_room(mx, my);
+			} else
+			{
+				dungeon.exit_room();
+			}
+			change_state(STATE_EDITOR);
 		}
 		
 		public function save():void

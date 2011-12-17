@@ -31,9 +31,17 @@ package
 			add(current_room);
 		}
 		
-		public function enter_room(room:Room):void
+		public function enter_room(x:int, y:int):void
 		{
-			current_room = room;
+			var key:String = "x:"+x+"y:"+y;
+			if(!sub_rooms[key])
+				sub_rooms[key] = new Room();
+			current_room = sub_rooms[key]			
+		}
+		
+		public function exit_room():void
+		{
+			current_room = master_room;
 		}
 		
 		public function pack():ByteArray
@@ -48,7 +56,7 @@ package
 			for(key in sub_rooms)
 			{
 				bytes.writeUTF("key");
-				sub_rooms.pack(bytes);
+				sub_rooms[key].pack(bytes);
 			}
 			return bytes;
 		}
