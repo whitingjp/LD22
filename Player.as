@@ -31,6 +31,36 @@ package
 			type = "push";
 		}
 		
+		public function check_exiting():void
+		{
+			var dungeon:Dungeon = Dungeon(FP.world);
+			for(var i:int = 0; i<4; i++)
+			{
+				var check:Boolean = false;
+				switch(i)
+				{
+					case 0: check = y < 0; break;
+					case 1: check = x > Main.SCREENW; break;
+					case 2: check = y > Main.SCREENH; break;
+					case 3: check = x < 0; break;
+				}
+				trace("i: "+i+" check:"+check);
+				if(check && dungeon.exits[i])
+				{
+					switch(i)
+					{
+						case 0: this.y += Main.SCREENH; break;
+						case 1: this.x -= Main.SCREENW; break;
+						case 2: this.x -= Main.SCREENH; break;
+						case 3: this.x += Main.SCREENW; break;
+					}									
+					dungeon.enter_room(dungeon.exits[i]);
+					dungeon.room_reset();
+					dungeon.add(this);				
+				}
+			}
+		}
+		
 		public override function update():void
 		{
 			layer = -y;
@@ -54,6 +84,8 @@ package
 				render_frame += dir*2;
 				sprite.frame = render_frame;
 			}
+			
+			check_exiting();
 		}
 	}
 }
