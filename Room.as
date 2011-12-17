@@ -86,10 +86,13 @@ package
 				}
 			}
 			
-			if(!editing && include_world_blocks)
+			if(FP.world is Dungeon)
 			{
 				var dungeon:Dungeon = Dungeon(FP.world);
-				add_pushblock_array(dungeon.room_blocks);
+				if(!editing && include_world_blocks)
+				{				
+					add_pushblock_array(dungeon.room_blocks);
+				}
 			}
 		}
 		
