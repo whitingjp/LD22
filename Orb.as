@@ -27,7 +27,8 @@ package
 			sprite.x -= 8;
 			sprite.y -= 8+8;			
 			graphic = sprite;
-			setHitbox(12,12,6,6);			
+			setHitbox(12,12,6,6);
+			type = "orb_off";
 		}
 		
 		public override function update():void

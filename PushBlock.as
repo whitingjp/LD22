@@ -140,11 +140,16 @@ package
 					var room:Room = Dungeon(FP.world).sub_rooms[room_key];
 					can_move = !room.has_tile(Room.ORB_OFF);
 				}
+				decided_can_move = true;
 			}
 		
 			var dungeon:Dungeon = Dungeon(FP.world);
 			if(dungeon.current_room == dungeon.sub_rooms[room_key])
-				can_move = !dungeon.typeFirst("orb_off");
+			{
+				var orb:Orb = Orb(dungeon.typeFirst("orb_off"));
+				if(can_move && orb) orb.on = true;
+				else if(!orb) can_move = true;				
+			}
 		}
 		
 		public override function update():void
