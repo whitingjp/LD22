@@ -51,7 +51,7 @@ package
 					{
 						case 0: this.y += Main.SCREENH; break;
 						case 1: this.x -= Main.SCREENW; break;
-						case 2: this.x -= Main.SCREENH; break;
+						case 2: this.y -= Main.SCREENH; break;
 						case 3: this.x += Main.SCREENW; break;
 					}									
 					dungeon.enter_room(dungeon.exits[i]);
