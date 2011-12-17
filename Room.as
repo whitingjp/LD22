@@ -34,6 +34,8 @@ package
 		public var wall_grid:Grid;
 		public var floor_grid:Grid;
 		
+		public var include_world_blocks:Boolean=false;
+		
 		public function Room(bytes:ByteArray=null)
 		{			
 			level_data = new Tilemap(EditorTileGfx, WIDTH*TILEW, HEIGHT*TILEH, TILEW, TILEH);			
@@ -139,12 +141,14 @@ package
 		{
 			var str:String = level_data.saveToString();
 			bytes.writeUTF(str);
+			bytes.writeBoolean(include_world_blocks);
 		}
 		
 		public function unpack(bytes:ByteArray):void
 		{
 			var str:String = bytes.readUTF();
 			level_data.loadFromString(str);
+			include_world_blocks = bytes.readBoolean();
 		}
 	}	
 }
