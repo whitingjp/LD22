@@ -11,11 +11,13 @@ package
 		public static const EmbeddedDungeon: Class;		
 	
 		public var master_room:Room;
+		public var sub_rooms:Object;
 		public var current_room:Room;
 	
 		public function init():void
-		{
+		{			
 			master_room = new Room();
+			sub_rooms = new Object();
 			current_room = master_room;
 			unpack(new EmbeddedDungeon() as ByteArray);			
 			reset();
@@ -37,13 +39,30 @@ package
 		public function pack():ByteArray
 		{
 			var bytes:ByteArray = new ByteArray();
-			current_room.pack(bytes);
+			master_room.pack(bytes);
+			var num_sub_rooms:int = 0;
+			var key:String
+			for(key in sub_rooms)
+				num_sub_rooms++;
+			bytes.writeInt(num_sub_rooms);
+			for(key in sub_rooms)
+			{
+				bytes.writeUTF("key");
+				sub_rooms.pack(bytes);
+			}
 			return bytes;
 		}
 		
 		public function unpack(bytes:ByteArray):void
 		{
-			current_room.unpack(bytes);
+			master_room.unpack(bytes);
+			sub_rooms = new Object();
+			var num_sub_rooms:int = bytes.readInt();
+			for(var i:int=0; i<num_sub_rooms; i++)
+			{
+				var key:String = bytes.readUTF();
+				sub_rooms[key] = bytes.readUTF();
+			}
 		}
 	}
 }
