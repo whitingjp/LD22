@@ -16,6 +16,7 @@ package
 		
 		public static const STATE_GAME:int = 0;
 		public static const STATE_EDITOR:int = 1;
+		public static const STATE_PRE:int = 2;
 		
 		public static const FINAL:Boolean = false;
 		
@@ -29,6 +30,7 @@ package
 			super(SCREENW*3, SCREENH*3, 60, true);
 			FP.screen.scale = 3;
 			FP.screen.color = 0x30362a;
+			st = STATE_PRE;
 		}
 		
 		public function change_state(_state:int):void
@@ -61,12 +63,13 @@ package
 			FP.world = dungeon;
 			dungeon.init();
 			if(!FINAL && so.data.dungeon)
-				dungeon.unpack(so.data.dungeon);
+				dungeon.unpack(so.data.dungeon);			
 		}
 		
 		public override function update():void
-		{
+		{			
 			super.update();
+			if(st == STATE_PRE) change_state(STATE_GAME);
 			trace("count: "+FP.world.count);
 			if(!FINAL && Input.pressed(Key.E))
 			{
