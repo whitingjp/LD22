@@ -122,7 +122,7 @@ package
 			{
 				if(sub_rooms[key])
 				{
-					bytes.writeUTF("key");
+					bytes.writeUTF(key);
 					sub_rooms[key].pack(bytes);
 				}
 			}
