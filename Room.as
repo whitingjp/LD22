@@ -22,19 +22,21 @@ package
 		public static const PUSHBLOCK:int = 2;
 		public static const TRACK:int = 3;
 		public static const PLAYER:int = 4;		
+		public static const BLOCKER:int = 5;
 		
 		[Embed(source="gfx/editor_tile.png")]
 		public static const EditorTileGfx: Class;		
 		
 		[Embed(source="gfx/static_tile.png")]
 		public static const StaticTileGfx: Class;				
-		
+
 		public var level_data:Tilemap;
+		public var include_world_blocks:Boolean=false;		
+		
 		public var static_rows:Array;
 		public var wall_grid:Grid;
 		public var floor_grid:Grid;
-		
-		public var include_world_blocks:Boolean=false;
+		public var exits:int = 0;
 		
 		public function Room(bytes:ByteArray=null)
 		{			
@@ -66,6 +68,9 @@ package
 							case PUSHBLOCK:
 								e = new PushBlock(Dungeon.key(i, j));
 								onTrack = true;								
+								break;
+							case BLOCKER:
+								e = new Blocker();
 								break;
 							default:
 								static_rows[j].setTile(i, j, tile);
