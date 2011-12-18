@@ -69,16 +69,18 @@ package
 			
 			if(Main.galaxy.has_won) return;
 			
-			if(Input.pressed(Key.UP)) dir = 0;
-			if(Input.pressed(Key.RIGHT)) dir = 1;
-			if(Input.pressed(Key.DOWN)) dir = 2;
-			if(Input.pressed(Key.LEFT)) dir = 3;
 			vx = int(Input.check(Key.RIGHT))-int(Input.check(Key.LEFT));
 			vy = int(Input.check(Key.DOWN))-int(Input.check(Key.UP));
 			if(vx && vy)
 			{
 				vx /= Math.sqrt(2);
 				vy /= Math.sqrt(2);
+			} else
+			{
+				if(vy < 0) dir = 0;
+				if(vx > 0) dir = 1;
+				if(vy > 0) dir = 2;
+				if(vx < 0) dir = 3;
 			}
 			
 			if(Input.pressed(Key.R)) Main.galaxy.enter_dungeon("master");
