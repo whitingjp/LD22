@@ -36,15 +36,17 @@ package
 			var player_e:Entity = collide("player", x, y);
 			if(player_e)
 			{
+				if(timer == 0) Main.galaxy.play("resetter");
 				var player:Player = Player(player_e);
 				timer++;
 				sprite.frame = timer/8;
-				if(timer > 80)
+				if(timer > 120)
 				{
 					// do reset
 					timer = 0;
 					Dungeon(FP.world).reset();
 					FP.world.add(player);
+					Main.galaxy.play("reset");
 				}
 			} else
 			{
