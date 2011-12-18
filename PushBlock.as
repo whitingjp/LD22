@@ -113,6 +113,12 @@ package
 		
 		public function update_canmove():void
 		{
+			if(Main.galaxy.overworld)
+			{				
+				can_move = Main.galaxy.dungeon_completion[room_key];
+				return;			
+			}				
+		
 			if(!decided_can_move)
 			{
 				if(!room_key) can_move = true;
@@ -125,7 +131,7 @@ package
 			}
 			
 			var dungeon:Dungeon = Dungeon(FP.world);
-			if(dungeon.room_timer < 8) return;			
+			if(dungeon.room_timer < 8) return;
 			
 			if(dungeon.current_room == dungeon.sub_rooms[room_key])
 			{
