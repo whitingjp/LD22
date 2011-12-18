@@ -16,12 +16,12 @@ package
 		public var room_blocks:Array;
 		public var exits:Array;		
 	
-		public function init():void
+		public function init(clean:Boolean=false):void
 		{			
 			master_room = new Room();
 			sub_rooms = new Object();			
-			current_room = master_room;			
-			unpack(new EmbeddedDungeon() as ByteArray);	
+			current_room = master_room;
+			if(!clean) unpack(new EmbeddedDungeon() as ByteArray);	
 			exits = new Array;
 			reset();
 		}

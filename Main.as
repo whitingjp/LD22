@@ -66,7 +66,7 @@ package
 			dungeon.init();			
 			if(!FINAL)
 			{
-				if(so.data.dungeon) dungeon.unpack(so.data.dungeon);
+				//if(so.data.dungeon) dungeon.unpack(so.data.dungeon);
 				FP.console.enable();
 				FP.console.toggleKey = Key.Q;
 			}			
@@ -89,6 +89,12 @@ package
 				if(Input.pressed(Key.SPACE)) toggle_master();
 				if(Input.check(Key.SHIFT) && Input.pressed(Key.X)) cut_sub_room();
 				if(Input.check(Key.SHIFT) && Input.pressed(Key.V)) paste_sub_room();
+				if(Input.check(Key.SHIFT) && Input.pressed(Key.ESCAPE))
+				{
+					dungeon = new Dungeon();
+					FP.world = dungeon;					
+					dungeon.init(true);
+				}
 			}
 		}
 		
