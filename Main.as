@@ -63,7 +63,7 @@ package
 			
 			dungeon = new Dungeon();
 			FP.world = dungeon;
-			dungeon.init();
+			dungeon.init();			
 			if(!FINAL)
 			{
 				if(so.data.dungeon) dungeon.unpack(so.data.dungeon);

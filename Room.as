@@ -25,6 +25,7 @@ package
 		public static const BLOCKER:int = 5;
 		public static const ORB_OFF:int = 6;
 		public static const ORB_ON:int = 7;
+		public static const ORB_GOAL:int = 8;
 		
 		[Embed(source="gfx/editor_tile.png")]
 		public static const EditorTileGfx: Class;		
@@ -103,6 +104,9 @@ package
 								break;
 							case ORB_ON:
 								e = new Orb(true);
+								break;
+							case ORB_GOAL:
+								e = new Orb(true, true);
 								break;
 							case WALL:
 								var auto:int = auto_tile(i, j);
