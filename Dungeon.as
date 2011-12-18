@@ -155,7 +155,12 @@ package
 					if(room_blocks[i].room_key == current_room_key)
 						room_blocks[i].update_canmove();
 			}
-		}		
+		}
+		
+		public function touched_goal():void
+		{
+			
+		}
 		
 		public function pack():ByteArray
 		{

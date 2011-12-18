@@ -37,6 +37,7 @@ package
 			graphic = sprite;
 			setHitbox(12,12,6,6);
 			type = source ? "orb_source" : "orb_off";
+			if(goal) type = "orb_goal";
 		}
 		
 		public override function update():void
