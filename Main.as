@@ -28,6 +28,7 @@ package
 		public var cut_room:Room=null;
 
 		public static var galaxy:Galaxy;
+		public var audio:Audio;
 		
 		public function Main()
 		{
@@ -36,6 +37,7 @@ package
 			FP.screen.color = 0x30362a;
 			st = STATE_PRE;
 			galaxy = new Galaxy(this);
+			audio = new Audio();
 		}
 		
 		public function change_state(_state:int):void
@@ -64,6 +66,7 @@ package
 			FP.height /= FP.screen.scale;
 			
 			galaxy.init();
+			audio.init();
 			if(!FINAL)
 			{
 				//if(so.data.dungeon) dungeon.unpack(so.data.dungeon);
@@ -84,6 +87,7 @@ package
 		public override function update():void
 		{			
 			super.update();
+			audio.update();
 			if(st == STATE_PRE) change_state(STATE_GAME);
 			if(!FINAL && Input.pressed(Key.E))
 			{
