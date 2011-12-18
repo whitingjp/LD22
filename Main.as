@@ -38,6 +38,8 @@ package
 			st = STATE_PRE;
 			galaxy = new Galaxy(this);
 			audio = new Audio();
+			
+
 		}
 		
 		public function change_state(_state:int):void
@@ -59,8 +61,13 @@ package
 		}		
 		
 		public override function init():void
-		{
+		{		
 			super.init();
+			
+			if(FINAL)
+			{
+				MochiBot.track(this, "6fe3dc68");
+			}
 			
 			FP.width /= FP.screen.scale;
 			FP.height /= FP.screen.scale;

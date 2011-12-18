@@ -46,7 +46,7 @@ package
 		
 		public function onEnterFrame (e:Event): void
 		{
-			//if (hasLoaded()) startup();
+			if (hasLoaded()) startup();
 			
 			var p:Number = (loaderInfo.bytesLoaded / loaderInfo.bytesTotal);
 				
