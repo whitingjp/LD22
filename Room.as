@@ -214,8 +214,8 @@ package
 		public function make_live():void
 		{
 			var overworld:Boolean = false;
-			if(FP.world is Dungeon)
-				overworld = Dungeon(FP.world).overworld
+			if(Main.galaxy)
+				overworld = Main.galaxy.overworld
 				
 			var editing:Boolean = Main.st == Main.STATE_EDITOR;
 			static_rows = new Array();

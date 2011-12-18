@@ -14,7 +14,6 @@ package
 		public var room_blocks:Array;
 		public var exits:Array;
 		public var room_timer:int;
-		public var overworld:Boolean=false;
 	
 		public function init(bytes:ByteArray=null):void
 		{			
@@ -156,12 +155,7 @@ package
 						room_blocks[i].update_canmove();
 			}
 		}
-		
-		public function touched_goal():void
-		{
-			
-		}
-		
+				
 		public function pack():ByteArray
 		{
 			var bytes:ByteArray = new ByteArray();

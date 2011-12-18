@@ -30,7 +30,7 @@ package
 		
 		public var decided_can_move:Boolean;
 		public var can_move:Boolean = false;
-		
+	
 		public function PushBlock(room_key:String=null):void
 		{
 			stamp = new Stamp(BlockGfx);
@@ -132,7 +132,6 @@ package
 				var off_orb:Orb = Orb(dungeon.typeFirst("orb_off"));
 				var on_orb:Orb = Orb(dungeon.typeFirst("orb_on"));
 				var source_orb:Orb = Orb(dungeon.typeFirst("orb_source"));
-				trace("canmove: "+can_move+" off:" + off_orb + " on:"+on_orb + " source:"+source_orb);
 				if(can_move && off_orb)
 					off_orb.on = true;
 				else if(!off_orb && (on_orb || source_orb))

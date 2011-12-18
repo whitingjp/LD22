@@ -91,7 +91,7 @@ package
 			
 			if(collide("orb_goal", x+vx, y+vy))
 			{
-				Dungeon(FP.world).touched_goal();
+				Main.galaxy.touched_goal();
 			}
 			
 			moveBy(vx, vy, ["solid","push","orb_on","orb_off","orb_source", "orb_goal"]);

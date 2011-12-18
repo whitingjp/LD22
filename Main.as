@@ -28,7 +28,9 @@ package
 		public var cut_room:Room=null;
 		
 		[Embed(source="levels/tutorial.lvl", mimeType="application/octet-stream")]
-		public static const EmbeddedDungeon: Class;				
+		public static const EmbeddedDungeon: Class;	
+
+		public static var galaxy:Galaxy;
 		
 		public function Main()
 		{
@@ -36,6 +38,7 @@ package
 			FP.screen.scale = 4;
 			FP.screen.color = 0x30362a;
 			st = STATE_PRE;
+			galaxy = new Galaxy(this);
 		}
 		
 		public function change_state(_state:int):void
@@ -63,7 +66,7 @@ package
 			FP.width /= FP.screen.scale;
 			FP.height /= FP.screen.scale;
 			
-			change_dungeon(new EmbeddedDungeon() as ByteArray);
+			galaxy.init();
 			if(!FINAL)
 			{
 				//if(so.data.dungeon) dungeon.unpack(so.data.dungeon);
