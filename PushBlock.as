@@ -113,7 +113,7 @@ package
 			
 			anim_timer = (anim_timer+1)%128;
 			if(dungeon.sub_rooms[room_key] == dungeon.current_room && anim_timer < 40)
-				overlay.alpha = anim_timer/40.0;
+				overlay.alpha = 0;
 			else 
 				overlay.alpha = 1;
 		}
