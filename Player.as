@@ -83,8 +83,6 @@ package
 				if(vx < 0) dir = 3;
 			}
 			
-			if(Input.pressed(Key.R)) Main.galaxy.enter_dungeon("master");
-			
 			if(collide("orb_source", x+vx, y+vy) && !orb_timer)
 			{
 				orb_timer = ORB_TIMEOUT;				
