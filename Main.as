@@ -32,8 +32,8 @@ package
 		
 		public function Main()
 		{
-			super(SCREENW*4, SCREENH*4, 60, true);
-			FP.screen.scale = 4;
+			super(SCREENW*3, SCREENH*3, 60, true);
+			FP.screen.scale = 3;
 			FP.screen.color = 0x30362a;
 			st = STATE_PRE;
 			galaxy = new Galaxy(this);
