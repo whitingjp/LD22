@@ -14,6 +14,7 @@ package
 		public var room_blocks:Array;
 		public var exits:Array;
 		public var room_timer:int;
+		public var overworld:Boolean=false;
 	
 		public function init(bytes:ByteArray=null):void
 		{			
