@@ -38,9 +38,19 @@ package
 			st = STATE_PRE;
 			galaxy = new Galaxy(this);
 			audio = new Audio();
-			
-
 		}
+		
+		public function getDomainValid():Boolean
+		{
+			if(!FINAL) return true;
+		
+    		var currentDomain:String = FP.stage.loaderInfo.url.split("/")[2];
+    		
+    		if (currentDomain == "jonathanwhiting.com")
+    			return true;
+          
+    		return false;
+		}				
 		
 		public function change_state(_state:int):void
 		{			
@@ -61,13 +71,16 @@ package
 		}		
 		
 		public override function init():void
-		{		
+		{			
 			super.init();
 			
 			if(FINAL)
 			{
 				MochiBot.track(this, "6fe3dc68");
 			}
+			
+			if(!getDomainValid())
+				return;
 			
 			FP.width /= FP.screen.scale;
 			FP.height /= FP.screen.scale;
