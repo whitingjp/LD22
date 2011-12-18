@@ -128,9 +128,12 @@ package
 			var dungeon:Dungeon = Dungeon(FP.world);
 			if(dungeon.current_room == dungeon.sub_rooms[room_key])
 			{
-				var orb:Orb = Orb(dungeon.typeFirst("orb_off"));
-				if(can_move && orb) orb.on = true;
-				else if(!orb) can_move = true;				
+				var off_orb:Orb = Orb(dungeon.typeFirst("orb_off"));
+				var on_orb:Orb = Orb(dungeon.typeFirst("orb_on"));
+				if(can_move && off_orb)
+					off_orb.on = true;
+				else if(!off_orb && on_orb)
+					can_move = true;				
 			}
 		}
 		
