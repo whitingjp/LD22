@@ -37,7 +37,9 @@ package
 			FP.tweener.addTween(volTween);
 			FP.tweener.addTween(volTween2);
 			
-			volTween.tween(sounds["overworld"], "volume", 1, 600);
+			if(Main.so.data.mute) mute = Main.so.data.mute;			
+			
+			volTween.tween(sounds["overworld"], "volume", mute ? 0 : 1, 600);
 			fade = 0;
 			
 			addSynth("push", "3,,0.08,,0.35,0.2,,-0.5,,,,,,,,,,,0.6,0.3799,,,,0.5");
@@ -82,6 +84,8 @@ package
 		public function toggle_mute():void
 		{
 			mute = !mute;
+			Main.so.data.mute = mute;
+			Main.so.flush();
 			if(mute)
 			{
 				volTween.tween(sounds["overworld"], "volume", 0, 25);
