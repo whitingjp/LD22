@@ -10,6 +10,7 @@ package
 		public var master_room:Room;
 		public var sub_rooms:Object;
 		public var current_room:Room;
+		public var current_room_key:String;
 		public var room_blocks:Array;
 		public var exits:Array;		
 	
@@ -75,9 +76,11 @@ package
 		
 		public function enter_room(key:String):void
 		{
+			trace("key:"+key);
 			if(!sub_rooms[key])
 				sub_rooms[key] = new Room();
-			current_room = sub_rooms[key]			
+			current_room = sub_rooms[key]	
+			current_room_key = key;
 		}
 		
 		public function exit_room():void
@@ -87,7 +90,6 @@ package
 		
 		public function find_exits():void
 		{
-			trace("find_exits()");
 			var i:int;
 			for(i=0; i<4; i++) exits[i] = null;
 		
@@ -97,12 +99,10 @@ package
 			{
 				var r:Room = null;
 				var b:PushBlock = room_blocks[i];
-				if(b) trace("test_block:"+b.room_key);
 				if(b) r = sub_rooms[b.room_key];
 				if(r == current_room)
 				{
 					block = b;
-					trace("found_block:"+b.room_key);
 				}
 			}
 			
@@ -133,7 +133,6 @@ package
 							if(check_room && check_room.valid_exits & check_flag)
 							{
 								exits[i] = check_key;
-								trace("found_exit: "+i+":"+exits[i]);
 							}
 						}
 					}
@@ -145,6 +144,13 @@ package
 		{
 			super.update();
 			find_exits();
+			
+			if(Main.st == Main.STATE_GAME && !current_room.include_world_blocks)
+			{
+				for(var i:int=0; i<room_blocks.length; i++)
+					if(room_blocks[i].room_key == current_room_key)
+						room_blocks[i].update_canmove();
+			}
 		}		
 		
 		public function pack():ByteArray

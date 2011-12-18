@@ -41,7 +41,6 @@ package
 		public function change_state(_state:int):void
 		{			
 			st = _state;		
-			trace("change_state:"+st);
 			dungeon.reset();
 			
 			switch(st)

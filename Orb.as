@@ -21,11 +21,13 @@ package
 		public var sprite:Spritemap;
 		
 		public var on:Boolean;
+		public var source:Boolean;
 		public var anim_timer:int;
 		
-		public function Orb(on:Boolean, goal:Boolean = false):void
+		public function Orb(source:Boolean, goal:Boolean = false):void
 		{
-			this.on = on;
+			this.source = source;
+			this.on = source;
 			if(goal)
 				sprite = new Spritemap(GoalGfx, 16, 24);
 			else
@@ -34,7 +36,7 @@ package
 			sprite.y -= 8+8;			
 			graphic = sprite;
 			setHitbox(12,12,6,6);
-			type = "orb_off";
+			type = source ? "orb_source" : "orb_off";
 		}
 		
 		public override function update():void
@@ -42,11 +44,13 @@ package
 			layer = -y;
 			
 			anim_timer = (anim_timer+1)%16;
-			if(on)
+			if(source)
 				sprite.frame = anim_timer/4;
+			else if(on)
+				sprite.frame = 2;
 			else
 				sprite.frame = 0;
-			type = on ? "orb_on" : "orb_off";
+			if(on && type == "orb_off") type = "orb_on";
 		}
 	}
 }

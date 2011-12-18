@@ -15,7 +15,7 @@ package
 		[Embed(source="gfx/player.png")]
 		public static const PlayerGfx: Class;	
 		
-		public static const ORB_TIMEOUT:int = 300;
+		public static const ORB_TIMEOUT:int = 600;
 	
 		public var vx:Number = 0;
 		public var vy:Number = 0;
@@ -47,7 +47,6 @@ package
 					case 2: check = y > Main.SCREENH; break;
 					case 3: check = x < 0; break;
 				}
-				trace("i: "+i+" check:"+check);
 				if(check && dungeon.exits[i])
 				{
 					switch(i)
@@ -81,7 +80,7 @@ package
 			}
 			
 			
-			if(collide("orb_on", x+vx, y+vy))
+			if(collide("orb_source", x+vx, y+vy))
 				orb_timer = ORB_TIMEOUT;				
 			if(orb_timer)
 			{

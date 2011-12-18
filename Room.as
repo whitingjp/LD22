@@ -69,7 +69,7 @@ package
 		}
 		
 		public function reprocess(editing:Boolean):void
-		{						
+		{
 			calculate_valid_exits();
 			
 			for(var j:int = 0; j<level_data.rows; j++)
@@ -121,7 +121,6 @@ package
 							e.x = i*TILEW+8;
 							e.y = j*TILEH+8;
 							FP.world.add(e);
-							trace("adding");
 							if(onTrack)
 								static_rows[j].setTile(i, j, TRACK);
 							else

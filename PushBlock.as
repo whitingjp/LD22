@@ -62,7 +62,6 @@ package
 			if(collide("player", x-1, y)) push = 1;
 			if(collide("player", x, y-1)) push = 2;
 			if(collide("player", x+1, y)) push = 3;
-			trace("push:"+push);
 			
 			if(push != -1)
 			{
@@ -130,10 +129,11 @@ package
 			{
 				var off_orb:Orb = Orb(dungeon.typeFirst("orb_off"));
 				var on_orb:Orb = Orb(dungeon.typeFirst("orb_on"));
+				var source_orb:Orb = Orb(dungeon.typeFirst("orb_source"));
 				if(can_move && off_orb)
 					off_orb.on = true;
-				else if(!off_orb && on_orb)
-					can_move = true;				
+				else if(!off_orb && (on_orb || source_orb))
+					can_move = true;
 			}
 		}
 		
