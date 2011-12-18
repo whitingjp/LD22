@@ -4,6 +4,8 @@ package
 	import net.flashpunk.graphics.*;
 	import net.flashpunk.utils.*;
 	
+	import flash.display.BitmapData;
+	
 	import flash.utils.*;
 	public class Dungeon extends World
 	{
@@ -162,8 +164,59 @@ package
 				fade_out.alpha = 0;
 				addGraphic(fade_out, -100000);
 				FP.tween(fade_out, {alpha: 1}, 500);
-			}
+			}			
 		}
+		
+		private function swapColour(image:BitmapData, source:uint, dest:uint):void
+		{
+			image.threshold(image, image.rect, FP.zero, "==", source, dest);
+		}				
+		
+		public override function render (): void
+		{
+			super.render();
+			if(Main.galaxy.overworld) return;
+			if(Main.galaxy.current_dungeon_key == "x:7y:5")
+			{
+				swapColour(FP.buffer, 0xff131316, 0xff161315);
+				swapColour(FP.buffer, 0xff1e2727, 0xff2b212c);
+				swapColour(FP.buffer, 0xff61221f, 0xff263a53);
+				swapColour(FP.buffer, 0xff30362a, 0xff462b3a);
+				swapColour(FP.buffer, 0xff4d553e, 0xff6f4a6c);
+				swapColour(FP.buffer, 0xffd5ba86, 0xff86c7d5);
+				swapColour(FP.buffer, 0xfff6f4bb, 0xffcdf6de);
+			}
+			if(Main.galaxy.current_dungeon_key == "x:3y:4")
+			{
+				swapColour(FP.buffer, 0xff131316, 0xff131416);
+				swapColour(FP.buffer, 0xff1e2727, 0xff21212c);
+				swapColour(FP.buffer, 0xff61221f, 0xff295f45);
+				swapColour(FP.buffer, 0xff30362a, 0xff3b2b46);
+				swapColour(FP.buffer, 0xff4d553e, 0xffb4d494);
+				swapColour(FP.buffer, 0xffd5ba86, 0xffd55570);
+				swapColour(FP.buffer, 0xfff6f4bb, 0xfff0cdf6);			
+			}
+			if(Main.galaxy.current_dungeon_key == "x:6y:6")
+			{
+				swapColour(FP.buffer, 0xff131316, 0xff141414);
+				swapColour(FP.buffer, 0xff1e2727, 0xff222222);
+				swapColour(FP.buffer, 0xff61221f, 0xff303030);
+				swapColour(FP.buffer, 0xff30362a, 0xff525252);
+				swapColour(FP.buffer, 0xff4d553e, 0xff939393);
+				swapColour(FP.buffer, 0xffd5ba86, 0xffbfbfbf);
+				swapColour(FP.buffer, 0xfff6f4bb, 0xfff6f6f6);
+			}
+			if(Main.galaxy.current_dungeon_key == "x:4y:6")
+			{
+				swapColour(FP.buffer, 0xff131316, 0xff161313);
+				swapColour(FP.buffer, 0xff1e2727, 0xff221e27);
+				swapColour(FP.buffer, 0xff61221f, 0xff2a4c6f);
+				swapColour(FP.buffer, 0xff30362a, 0xff525e4a);
+				swapColour(FP.buffer, 0xff4d553e, 0xff3f6159);
+				swapColour(FP.buffer, 0xffd5ba86, 0xff76cb8e);
+				swapColour(FP.buffer, 0xfff6f4bb, 0xffc1f6bb);			
+			}
+		}		
 				
 		public function pack():ByteArray
 		{
