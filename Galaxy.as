@@ -15,7 +15,7 @@ package
 		[Embed(source="levels/master.lvl", mimeType="application/octet-stream")]
 		public static const MasterDungeon: Class;	
 	
-		[Embed(source="levels/tutorial.lvl", mimeType="application/octet-stream")]
+		[Embed(source="levels/test_orb.lvl", mimeType="application/octet-stream")]
 		public static const TutorialDungeon: Class;
 		
 		[Embed(source="levels/shuttle.lvl", mimeType="application/octet-stream")]
@@ -84,6 +84,7 @@ package
 				enter_dungeon(dungeon.current_room_key);
 			} else
 			{
+				transition = 4;
 				dungeon_completion[current_dungeon_key] = true;
 				enter_dungeon("master");
 			}
