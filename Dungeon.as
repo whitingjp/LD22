@@ -5,6 +5,7 @@ package
 	import net.flashpunk.utils.*;
 	
 	import flash.display.BitmapData;
+	import flash.geom.Point;
 	
 	import flash.utils.*;
 	public class Dungeon extends World
@@ -17,6 +18,11 @@ package
 		public var exits:Array;
 		public var room_timer:int;
 		public var fade_out:Image=null;
+		
+	
+		[Embed(source="gfx/mute.png")]
+		public static const MuteGfx: Class;
+		public var mute:Spritemap;
 	
 		public function init(bytes:ByteArray=null):void
 		{			
@@ -26,6 +32,7 @@ package
 			if(bytes) unpack(bytes);
 			exits = new Array;
 			reset();
+			mute = new Spritemap(MuteGfx,9,9);
 		}
 		
 		public function room_reset():void
@@ -164,7 +171,10 @@ package
 				fade_out.alpha = 0;
 				addGraphic(fade_out, -100000);
 				FP.tween(fade_out, {alpha: 1}, 500);
-			}			
+			}
+			
+			if(Input.mousePressed && Input.mouseX < 10 && Input.mouseY < 10)
+				Main.galaxy.main.audio.toggle_mute();
 		}
 		
 		private function swapColour(image:BitmapData, source:uint, dest:uint):void
@@ -175,6 +185,10 @@ package
 		public override function render (): void
 		{
 			super.render();
+			mute.frame = Main.galaxy.main.audio.mute ? 1 : 0;
+			FP.point.x = 1;
+			FP.point.y = 1;
+			mute.render(FP.buffer, FP.point, FP.zero);
 			if(Main.galaxy.overworld) return;
 			if(Main.galaxy.current_dungeon_key == "x:7y:5")
 			{

@@ -25,7 +25,8 @@ package
 		public static var volTween2:VarTween = new VarTween;
 		
 		public var overworld:Boolean=true;
-		public var has_won:Boolean=false;		
+		public var has_won:Boolean=false;
+		public var mute:Boolean=false;
 		
 		public function init():void
 		{
@@ -54,11 +55,13 @@ package
 		
 		public function play(sound:String):void
 		{
-			sfxrs[sound].playCached();
+			if(!mute)
+				sfxrs[sound].playCached();
 		}
 		
 		public function update():void
 		{
+			if(mute) return;
 			var target:Boolean = Main.galaxy.overworld;
 			if(target != overworld)
 			{
@@ -72,6 +75,20 @@ package
 				has_won = target;
 				volTween.tween(sounds["overworld"], "volume", 0, 600);
 				volTween2.tween(sounds["underworld"], "volume", 0, 600);				
+			}
+		}
+		
+		public function toggle_mute():void
+		{
+			mute = !mute;
+			if(mute)
+			{
+				volTween.tween(sounds["overworld"], "volume", 0, 25);
+				volTween2.tween(sounds["underworld"], "volume", 0, 25);
+			} else
+			{
+				volTween.tween(sounds["overworld"], "volume", Number(overworld)/2, 50);
+				volTween2.tween(sounds["underworld"], "volume", Number(!overworld)/2, 50);				
 			}
 		}
 	}
