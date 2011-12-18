@@ -24,6 +24,7 @@ package
 		public static var volTween2:VarTween = new VarTween;
 		
 		public var overworld:Boolean=true;
+		public var has_won:Boolean=false;
 
 		public function init():void
 		{
@@ -45,6 +46,13 @@ package
 				overworld = target;
 				volTween.tween(sounds["overworld"], "volume", Number(overworld), 50);
 				volTween2.tween(sounds["underworld"], "volume", Number(!overworld), 50);
+			}
+			target = Main.galaxy.has_won;
+			if(target != has_won)
+			{
+				has_won = target;
+				volTween.tween(sounds["overworld"], "volume", 0, 600);
+				volTween2.tween(sounds["underworld"], "volume", 0, 600);				
 			}
 		}
 	}

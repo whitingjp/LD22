@@ -67,6 +67,8 @@ package
 		{
 			layer = -y;
 			
+			if(Main.galaxy.has_won) return;
+			
 			if(Input.pressed(Key.UP)) dir = 0;
 			if(Input.pressed(Key.RIGHT)) dir = 1;
 			if(Input.pressed(Key.DOWN)) dir = 2;
@@ -95,6 +97,9 @@ package
 				
 			if(!Main.FINAL && Input.pressed(Key.ENTER))
 				Main.galaxy.touched_goal();
+				
+			if(collide("other", x+vx, y+vy))
+				Main.galaxy.has_won = true;
 			
 			moveBy(vx, vy, ["solid","push","orb_on","orb_off","orb_source", "orb_goal", "other"]);
 			

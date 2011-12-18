@@ -38,6 +38,7 @@ package
 		public var main:Main;
 		
 		public var transition:int;
+		public var has_won:Boolean=false;
 		
 		public function Galaxy(main:Main)
 		{

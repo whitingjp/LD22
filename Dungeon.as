@@ -14,6 +14,7 @@ package
 		public var room_blocks:Array;
 		public var exits:Array;
 		public var room_timer:int;
+		public var fade_out:Image=null;
 	
 		public function init(bytes:ByteArray=null):void
 		{			
@@ -153,6 +154,14 @@ package
 				for(var i:int=0; i<room_blocks.length; i++)
 					if(room_blocks[i].room_key == current_room_key)
 						room_blocks[i].update_canmove();
+			}
+			
+			if(Main.galaxy.has_won && !fade_out)
+			{
+				fade_out = Image.createRect(FP.width, FP.height, 0xd5ba86)
+				fade_out.alpha = 0;
+				addGraphic(fade_out, -100000);
+				FP.tween(fade_out, {alpha: 1}, 500);
 			}
 		}
 				
