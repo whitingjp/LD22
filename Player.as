@@ -15,7 +15,7 @@ package
 		[Embed(source="gfx/player.png")]
 		public static const PlayerGfx: Class;	
 		
-		public static const ORB_TIMEOUT:int = 600;
+		public static const ORB_TIMEOUT:int = 700;
 	
 		public var vx:Number = 0;
 		public var vy:Number = 0;
@@ -89,7 +89,7 @@ package
 				if(e) Orb(e).on = true;
 			}
 			
-			moveBy(vx, vy, ["solid","push","orb_on","orb_off"]);
+			moveBy(vx, vy, ["solid","push","orb_on","orb_off","orb_source"]);
 			
 			if(vx || vy)
 				frame=(frame+1)%24;

@@ -12,7 +12,8 @@ package
 		public var current_room:Room;
 		public var current_room_key:String;
 		public var room_blocks:Array;
-		public var exits:Array;		
+		public var exits:Array;
+		public var room_timer:int;
 	
 		public function init(bytes:ByteArray=null):void
 		{			
@@ -26,6 +27,7 @@ package
 		
 		public function room_reset():void
 		{
+			room_timer = 0;
 			removeAll();
 			update();
 			current_room.make_live();
@@ -142,6 +144,7 @@ package
 
 		public override function update():void
 		{
+			room_timer++;
 			super.update();
 			find_exits();
 			

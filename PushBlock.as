@@ -123,13 +123,16 @@ package
 				}
 				decided_can_move = true;
 			}
-		
+			
 			var dungeon:Dungeon = Dungeon(FP.world);
+			if(dungeon.room_timer < 8) return;			
+			
 			if(dungeon.current_room == dungeon.sub_rooms[room_key])
 			{
 				var off_orb:Orb = Orb(dungeon.typeFirst("orb_off"));
 				var on_orb:Orb = Orb(dungeon.typeFirst("orb_on"));
 				var source_orb:Orb = Orb(dungeon.typeFirst("orb_source"));
+				trace("canmove: "+can_move+" off:" + off_orb + " on:"+on_orb + " source:"+source_orb);
 				if(can_move && off_orb)
 					off_orb.on = true;
 				else if(!off_orb && (on_orb || source_orb))
