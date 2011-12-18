@@ -96,7 +96,7 @@ package
 			if(!Main.FINAL && Input.pressed(Key.ENTER))
 				Main.galaxy.touched_goal();
 			
-			moveBy(vx, vy, ["solid","push","orb_on","orb_off","orb_source", "orb_goal"]);
+			moveBy(vx, vy, ["solid","push","orb_on","orb_off","orb_source", "orb_goal", "other"]);
 			
 			if(vx || vy)
 				frame=(frame+1)%24;

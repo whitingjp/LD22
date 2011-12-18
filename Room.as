@@ -26,6 +26,7 @@ package
 		public static const ORB_OFF:int = 6;
 		public static const ORB_ON:int = 7;
 		public static const ORB_GOAL:int = 8;
+		public static const OTHER:int = 9;
 		
 		[Embed(source="gfx/editor_tile.png")]
 		public static const EditorTileGfx: Class;		
@@ -114,6 +115,10 @@ package
 							case WALL:
 								var auto:int = auto_tile(i, j);
 								static_rows[j].setTile(i, j, auto);
+								break;
+							case OTHER:
+								e = new Other();
+								trace("other");
 								break;
 							default:
 								static_rows[j].setTile(i, j, tile);
