@@ -99,13 +99,20 @@ package
 					trace("entering sub dungeon: "+dungeon.current_room_key);
 					current_dungeon_key = dungeon.current_room_key;
 					enter_dungeon(dungeon.current_room_key);
+					play("switchworld");
 				}
 			} else
 			{
 				trace("returning to overworld: ");
 				dungeon_completion[current_dungeon_key] = true;
 				enter_dungeon("master");
+				play("goalorb");
 			}
+		}
+		
+		public function play(sound:String):void
+		{
+			main.audio.play(sound);
 		}
 	}
 }

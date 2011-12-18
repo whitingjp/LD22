@@ -86,7 +86,14 @@ package
 				var e:Entity = collide("push", x+vx*2, y+vy*2);
 				if(e && e != this) push_timer = 0;
 				if(collide("solid", x+vx*2, y+vy*2)) push_timer = 0;
-				if(collide("floor", x+vx*2, y+vy*2)) push_timer = 0;
+				if(collide("floor", x+vx*2, y+vy*2)) push_timer = 0;				
+				if(push_timer)
+				{
+					var dungeon:Dungeon = Dungeon(FP.world);
+					if(dungeon.sub_rooms[room_key] == dungeon.current_room)
+						Main.galaxy.play("movedself");
+					Main.galaxy.play("push");
+				}	
 			}			
 		}
 		

@@ -83,13 +83,24 @@ package
 			
 			if(Input.pressed(Key.R)) Main.galaxy.enter_dungeon("master");
 			
-			if(collide("orb_source", x+vx, y+vy))
+			if(collide("orb_source", x+vx, y+vy) && !orb_timer)
+			{
 				orb_timer = ORB_TIMEOUT;				
+				Main.galaxy.play("touchorb");
+			}
 			if(orb_timer)
 			{
 				orb_timer--;
 				var e:Entity = collide("orb_off", x+vx, y+vy)
-				if(e) Orb(e).on = true;
+				if(e)
+				{
+					var o:Orb = Orb(e);
+					if(!o.on)
+					{
+						o.on = true;
+						Main.galaxy.play("touchorb");
+					}
+				}
 			}
 			
 			if(collide("orb_goal", x+vx, y+vy))
