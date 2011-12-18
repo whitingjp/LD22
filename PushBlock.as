@@ -101,26 +101,7 @@ package
 		{
 			var dungeon:Dungeon = Dungeon(FP.world);
 			var exits:int = dungeon.sub_rooms[room_key].valid_exits;
-			var frame:int;
-			switch(exits)
-			{
-				case  0: frame = 15; break;
-				case  1: frame = 11; break;
-				case  2: frame = 12; break;
-				case  3: frame =  8; break;
-				case  4: frame =  3; break;
-				case  5: frame =  7; break;
-				case  6: frame =  0; break;
-				case  7: frame =  4; break;
-				case  8: frame = 14; break;
-				case  9: frame = 10; break;
-				case 10: frame = 13; break;
-				case 11: frame =  9; break;
-				case 12: frame =  2; break;
-				case 13: frame =  6; break;
-				case 14: frame =  1; break;
-				case 15: frame =  5; break;
-			}
+			var frame:int = Room.flags_to_frame(exits);
 			if(!can_move) frame += 16;
 			overlay.frame = frame;
 			

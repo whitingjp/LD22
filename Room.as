@@ -104,6 +104,10 @@ package
 							case ORB_ON:
 								e = new Orb(true);
 								break;
+							case WALL:
+								var auto:int = auto_tile(i, j);
+								static_rows[j].setTile(i, j, auto);
+								break;
 							default:
 								static_rows[j].setTile(i, j, tile);
 								break;
@@ -131,6 +135,40 @@ package
 					add_pushblock_array(dungeon.room_blocks);
 				}
 			}
+		}
+		
+		public function auto_tile(i:int, j:int):int
+		{
+			var flags:int = 0;
+			if(level_data.getTile(i,j-1)==WALL || j==0) flags |= 1;
+			if(level_data.getTile(i+1,j)==WALL || i==WIDTH-1) flags |= 2;
+			if(level_data.getTile(i,j+1)==WALL || j==HEIGHT-1) flags |= 4;
+			if(level_data.getTile(i-1,j)==WALL || i==0) flags |= 8;
+			return flags_to_frame(flags)+4;
+		}
+		
+		public static function flags_to_frame(flags:int):int
+		{
+			switch(flags)
+			{
+				case  0: return 15; break;
+				case  1: return 11; break;
+				case  2: return 12; break;
+				case  3: return  8; break;
+				case  4: return  3; break;
+				case  5: return  7; break;
+				case  6: return  0; break;
+				case  7: return  4; break;
+				case  8: return 14; break;
+				case  9: return 10; break;
+				case 10: return 13; break;
+				case 11: return  9; break;
+				case 12: return  2; break;
+				case 13: return  6; break;
+				case 14: return  1; break;
+				case 15: return  5; break;
+			}		
+			return 0;
 		}
 		
 		public function get_pushblock_array():Array
