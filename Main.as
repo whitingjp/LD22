@@ -27,7 +27,7 @@ package
 		
 		public var cut_room:Room=null;
 		
-		[Embed(source="levels/level.lvl", mimeType="application/octet-stream")]
+		[Embed(source="levels/tutorial.lvl", mimeType="application/octet-stream")]
 		public static const EmbeddedDungeon: Class;				
 		
 		public function Main()

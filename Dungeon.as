@@ -127,10 +127,10 @@ package
 						var by:int = room_blocks[j].y/16;
 						if(ax == bx && ay == by)
 						{
-							var check_key:String = room_blocks[j].room_key
+							var check_key:String = room_blocks[j].room_key;
 							var check_flag:int = 1<<(i+2)%4;
 							var check_room:Room = sub_rooms[check_key];
-							if(check_room.valid_exits & check_flag)
+							if(check_room && check_room.valid_exits & check_flag)
 							{
 								exits[i] = check_key;
 								trace("found_exit: "+i+":"+exits[i]);
