@@ -79,6 +79,7 @@ package
 				vy /= Math.sqrt(2);
 			}
 			
+			if(Input.pressed(Key.R)) Main.galaxy.enter_dungeon("master");
 			
 			if(collide("orb_source", x+vx, y+vy))
 				orb_timer = ORB_TIMEOUT;				

@@ -53,6 +53,13 @@ package
 		
 		public function enter_dungeon(room_key:String):void
 		{
+			if(transition)
+			{
+				transition--;
+				return;
+			}
+			transition = 1;
+			
 			overworld = false;
 			var byte_class:Class = null;
 			
@@ -86,13 +93,12 @@ package
 			var dungeon:Dungeon = Dungeon(FP.world);
 			if(overworld)
 			{
-				transition = 4;
 				trace("entering sub dungeon: "+dungeon.current_room_key);
 				current_dungeon_key = dungeon.current_room_key;
 				enter_dungeon(dungeon.current_room_key);
 			} else
 			{
-				transition = 4;
+				trace("returning to overworld: ");
 				dungeon_completion[current_dungeon_key] = true;
 				enter_dungeon("master");
 			}
