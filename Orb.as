@@ -45,7 +45,15 @@ package
 			layer = -y;
 			
 			anim_timer = (anim_timer+1)%16;
-			if(source)
+			if(Main.galaxy.overworld)
+			{
+				var key:String = Dungeon(FP.world).current_room_key;
+				if(Main.galaxy.dungeon_completion[key])
+					sprite.frame = 2;
+				else
+					sprite.frame = anim_timer/4;
+			}
+			else if(source)
 				sprite.frame = anim_timer/4;
 			else if(on)
 				sprite.frame = 2;

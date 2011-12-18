@@ -94,9 +94,12 @@ package
 			var dungeon:Dungeon = Dungeon(FP.world);
 			if(overworld)
 			{
-				trace("entering sub dungeon: "+dungeon.current_room_key);
-				current_dungeon_key = dungeon.current_room_key;
-				enter_dungeon(dungeon.current_room_key);
+				if(!dungeon_completion[dungeon.current_room_key])
+				{
+					trace("entering sub dungeon: "+dungeon.current_room_key);
+					current_dungeon_key = dungeon.current_room_key;
+					enter_dungeon(dungeon.current_room_key);
+				}
 			} else
 			{
 				trace("returning to overworld: ");
