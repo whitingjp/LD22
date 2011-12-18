@@ -26,9 +26,6 @@ package
 		public static var st:int;
 		
 		public var cut_room:Room=null;
-		
-		[Embed(source="levels/tutorial.lvl", mimeType="application/octet-stream")]
-		public static const EmbeddedDungeon: Class;	
 
 		public static var galaxy:Galaxy;
 		

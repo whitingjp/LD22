@@ -15,7 +15,7 @@ package
 		[Embed(source="levels/master.lvl", mimeType="application/octet-stream")]
 		public static const MasterDungeon: Class;	
 	
-		[Embed(source="levels/test_orb.lvl", mimeType="application/octet-stream")]
+		[Embed(source="levels/tutorial.lvl", mimeType="application/octet-stream")]
 		public static const TutorialDungeon: Class;
 		
 		[Embed(source="levels/shuttle.lvl", mimeType="application/octet-stream")]
@@ -63,6 +63,14 @@ package
 			}
 			if(room_key == "x:5y:4")
 				byte_class = TutorialDungeon;
+			if(room_key == "x:7y:5")
+				byte_class = ShuttleDungeon;
+			if(room_key == "x:3y:4")
+				byte_class = HubDungeon;
+			if(room_key == "x:6y:6")
+				byte_class = OrbTutorialDungeon;
+			if(room_key == "x:4y:6")
+				byte_class = TimingDungeon;
 
 			if(byte_class != null)
 				main.change_dungeon(new byte_class as ByteArray)
