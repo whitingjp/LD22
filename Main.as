@@ -27,6 +27,9 @@ package
 		
 		public var cut_room:Room=null;
 		
+		[Embed(source="levels/level.lvl", mimeType="application/octet-stream")]
+		public static const EmbeddedDungeon: Class;				
+		
 		public function Main()
 		{
 			super(SCREENW*4, SCREENH*4, 60, true);
@@ -61,15 +64,22 @@ package
 			FP.width /= FP.screen.scale;
 			FP.height /= FP.screen.scale;
 			
-			dungeon = new Dungeon();
-			FP.world = dungeon;
-			dungeon.init();			
+			change_dungeon(new EmbeddedDungeon() as ByteArray);
 			if(!FINAL)
 			{
 				//if(so.data.dungeon) dungeon.unpack(so.data.dungeon);
 				FP.console.enable();
 				FP.console.toggleKey = Key.Q;
 			}			
+		}
+		
+		public function change_dungeon(bytes:ByteArray):void
+		{
+			st = STATE_PRE;
+			dungeon = new Dungeon();
+			FP.world = dungeon;	
+			dungeon.init(bytes);
+			FP.world.update();
 		}
 		
 		public override function update():void
@@ -91,9 +101,7 @@ package
 				if(Input.check(Key.SHIFT) && Input.pressed(Key.V)) paste_sub_room();
 				if(Input.check(Key.SHIFT) && Input.pressed(Key.ESCAPE))
 				{
-					dungeon = new Dungeon();
-					FP.world = dungeon;					
-					dungeon.init(true);
+					change_dungeon(null);
 				}
 			}
 		}
@@ -145,8 +153,7 @@ package
 			
 			function loadComplete(event:Event):void
 			{
-				dungeon.unpack(file.data);
-				change_state(st);
+				change_dungeon(file.data);
 			}
 		}		
 	}

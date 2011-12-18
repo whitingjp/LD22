@@ -7,21 +7,18 @@ package
 	import flash.utils.*;
 	public class Dungeon extends World
 	{
-		[Embed(source="levels/level.lvl", mimeType="application/octet-stream")]
-		public static const EmbeddedDungeon: Class;		
-	
 		public var master_room:Room;
 		public var sub_rooms:Object;
 		public var current_room:Room;
 		public var room_blocks:Array;
 		public var exits:Array;		
 	
-		public function init(clean:Boolean=false):void
+		public function init(bytes:ByteArray=null):void
 		{			
 			master_room = new Room();
 			sub_rooms = new Object();			
 			current_room = master_room;
-			if(!clean) unpack(new EmbeddedDungeon() as ByteArray);	
+			if(bytes) unpack(bytes);
 			exits = new Array;
 			reset();
 		}
