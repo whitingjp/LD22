@@ -47,7 +47,10 @@ package
 		
 		public function init():void
 		{
-			dungeon_completion = new Object();			
+			if(Main.so.data.dungeon_completion)
+				dungeon_completion = Main.so.data.dungeon_completion;
+			else
+				dungeon_completion = new Object();
 			enter_dungeon("master");
 			transition = 0;
 		}
@@ -105,6 +108,8 @@ package
 			{
 				trace("returning to overworld: ");
 				dungeon_completion[current_dungeon_key] = true;
+				Main.so.data.dungeon_completion = dungeon_completion;
+				Main.so.flush();
 				enter_dungeon("master");
 				play("goalorb");
 			}
