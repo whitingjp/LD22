@@ -35,6 +35,9 @@ package
 				if(Input.pressed(Key.DIGIT_1 + i))
 					editTile = i;
 					
+			if(Input.pressed(Key.R))
+				editTile = Room.RESETER;
+					
 			var mx:int = Input.mouseX / Room.TILEW;
 			var my:int = Input.mouseY / Room.TILEW;
 			if(Input.mouseDown)

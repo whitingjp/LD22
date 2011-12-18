@@ -27,6 +27,7 @@ package
 		public static const ORB_ON:int = 7;
 		public static const ORB_GOAL:int = 8;
 		public static const OTHER:int = 9;
+		public static const RESETER:int = 10;
 		
 		[Embed(source="gfx/editor_tile.png")]
 		public static const EditorTileGfx: Class;		
@@ -118,7 +119,9 @@ package
 								break;
 							case OTHER:
 								e = new Other();
-								trace("other");
+								break;
+							case RESETER:
+								e = new Reseter();
 								break;
 							default:
 								static_rows[j].setTile(i, j, tile);
