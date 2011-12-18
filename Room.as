@@ -213,17 +213,13 @@ package
 		
 		public function make_live():void
 		{
-			var overworld:Boolean = false;
-			if(Main.galaxy)
-				overworld = Main.galaxy.overworld
-				
 			var editing:Boolean = Main.st == Main.STATE_EDITOR;
 			static_rows = new Array();
 			for(var j:int = 0; j<level_data.rows; j++)
 			{
 				var c:Class = StaticTileGfx;
 				if(editing) c = EditorTileGfx;
-				else if(overworld) c = StaticTileOverworldGfx;
+				else if(Main.galaxy.overworld) c = StaticTileOverworldGfx;
 				static_rows[j] = new Tilemap(c, WIDTH*TILEW, 24, TILEW, 24);
 				static_rows[j].y = j*16-(editing ? 0 : 8);
 				FP.world.addGraphic(static_rows[j], -static_rows[j].y-7);
