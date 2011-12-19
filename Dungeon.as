@@ -45,7 +45,7 @@ package
 					col = 0xd55570;
 				if(Main.galaxy.current_dungeon_key == "x:6y:6")
 					col = 0xbfbfbf;
-				if(Main.galaxy.current_dungeon_key == "x:4y:6")
+				if(Main.galaxy.current_dungeon_key == "x:5y:6")
 					col = 0x76cb8e;
 			}
 			fade_out = Image.createRect(FP.width, FP.height, col)
@@ -235,7 +235,7 @@ package
 					swapColour(FP.buffer, 0xffd5ba86, 0xffbfbfbf);
 					swapColour(FP.buffer, 0xfff6f4bb, 0xfff6f6f6);
 				}
-				if(Main.galaxy.current_dungeon_key == "x:4y:6")
+				if(Main.galaxy.current_dungeon_key == "x:5y:6")
 				{
 					swapColour(FP.buffer, 0xff131316, 0xff161313);
 					swapColour(FP.buffer, 0xff1e2727, 0xff221e27);

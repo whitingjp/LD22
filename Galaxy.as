@@ -80,7 +80,7 @@ package
 				byte_class = HubDungeon;
 			if(room_key == "x:6y:6")
 				byte_class = OrbTutorialDungeon;
-			if(room_key == "x:4y:6")
+			if(room_key == "x:5y:6")
 				byte_class = TimingDungeon;
 
 			if(byte_class != null)
