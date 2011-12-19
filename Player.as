@@ -109,6 +109,9 @@ package
 			if(!Main.FINAL && Input.pressed(Key.ENTER))
 				Main.galaxy.touched_goal();
 				
+			if(Input.pressed(Key.ESCAPE))
+				Main.galaxy.enter_dungeon("master");
+				
 			if(collide("other", x+vx, y+vy))
 				Main.galaxy.has_won = true;
 			
