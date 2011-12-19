@@ -17,15 +17,14 @@ package
 		public var room_blocks:Array;
 		public var exits:Array;
 		public var room_timer:int;
-		public var fade_out:Image=null;
-		
+		public var fade_out:Image;
 	
 		[Embed(source="gfx/mute.png")]
 		public static const MuteGfx: Class;
 		public var mute:Spritemap;
 	
 		public function init(bytes:ByteArray=null):void
-		{			
+		{
 			master_room = new Room();
 			sub_rooms = new Object();			
 			current_room = master_room;
@@ -35,13 +34,33 @@ package
 			mute = new Spritemap(MuteGfx,9,9);
 		}
 		
+		public function reset_fade_out():void
+		{
+			var col:uint = 0xd5ba86;
+			if(!Main.galaxy.overworld)
+			{
+				if(Main.galaxy.current_dungeon_key == "x:7y:5")
+					col = 0x86c7d5;
+				if(Main.galaxy.current_dungeon_key == "x:3y:4")
+					col = 0xd55570;
+				if(Main.galaxy.current_dungeon_key == "x:6y:6")
+					col = 0xbfbfbf;
+				if(Main.galaxy.current_dungeon_key == "x:4y:6")
+					col = 0x76cb8e;
+			}
+			fade_out = Image.createRect(FP.width, FP.height, col)
+			fade_out.alpha = 1;
+			FP.tween(fade_out, {alpha: 0}, 15);		
+		}
+		
 		public function room_reset():void
 		{
+			reset_fade_out();
 			room_timer = 0;
 			removeAll();
 			update();
 			current_room.make_live();
-			add(current_room);			
+			add(current_room);
 		}
 		
 		public function reset():void
@@ -166,12 +185,7 @@ package
 			}
 			
 			if(Main.galaxy.has_won && !fade_out)
-			{
-				fade_out = Image.createRect(FP.width, FP.height, 0xd5ba86)
-				fade_out.alpha = 0;
-				addGraphic(fade_out, -100000);
 				FP.tween(fade_out, {alpha: 1}, 500);
-			}
 			
 			if(Input.mousePressed && Input.mouseX < 10 && Input.mouseY < 10)
 				Main.galaxy.main.audio.toggle_mute();
@@ -188,48 +202,51 @@ package
 			mute.frame = Main.galaxy.main.audio.mute ? 1 : 0;
 			FP.point.x = 1;
 			FP.point.y = 1;
-			mute.render(FP.buffer, FP.point, FP.zero);
-			if(Main.galaxy.overworld) return;
-			if(Main.galaxy.current_dungeon_key == "x:7y:5")
+			mute.render(FP.buffer, FP.point, FP.zero);			
+			if(!Main.galaxy.overworld)
 			{
-				swapColour(FP.buffer, 0xff131316, 0xff161315);
-				swapColour(FP.buffer, 0xff1e2727, 0xff2b212c);
-				swapColour(FP.buffer, 0xff61221f, 0xff263a53);
-				swapColour(FP.buffer, 0xff30362a, 0xff462b3a);
-				swapColour(FP.buffer, 0xff4d553e, 0xff6f4a6c);
-				swapColour(FP.buffer, 0xffd5ba86, 0xff86c7d5);
-				swapColour(FP.buffer, 0xfff6f4bb, 0xffcdf6de);
+				if(Main.galaxy.current_dungeon_key == "x:7y:5")
+				{
+					swapColour(FP.buffer, 0xff131316, 0xff161315);
+					swapColour(FP.buffer, 0xff1e2727, 0xff2b212c);
+					swapColour(FP.buffer, 0xff61221f, 0xff263a53);
+					swapColour(FP.buffer, 0xff30362a, 0xff462b3a);
+					swapColour(FP.buffer, 0xff4d553e, 0xff6f4a6c);
+					swapColour(FP.buffer, 0xffd5ba86, 0xff86c7d5);
+					swapColour(FP.buffer, 0xfff6f4bb, 0xffcdf6de);
+				}
+				if(Main.galaxy.current_dungeon_key == "x:3y:4")
+				{
+					swapColour(FP.buffer, 0xff131316, 0xff131416);
+					swapColour(FP.buffer, 0xff1e2727, 0xff21212c);
+					swapColour(FP.buffer, 0xff61221f, 0xff295f45);
+					swapColour(FP.buffer, 0xff30362a, 0xff3b2b46);
+					swapColour(FP.buffer, 0xff4d553e, 0xffb4d494);
+					swapColour(FP.buffer, 0xffd5ba86, 0xffd55570);
+					swapColour(FP.buffer, 0xfff6f4bb, 0xfff0cdf6);			
+				}
+				if(Main.galaxy.current_dungeon_key == "x:6y:6")
+				{
+					swapColour(FP.buffer, 0xff131316, 0xff141414);
+					swapColour(FP.buffer, 0xff1e2727, 0xff222222);
+					swapColour(FP.buffer, 0xff61221f, 0xff303030);
+					swapColour(FP.buffer, 0xff30362a, 0xff525252);
+					swapColour(FP.buffer, 0xff4d553e, 0xff939393);
+					swapColour(FP.buffer, 0xffd5ba86, 0xffbfbfbf);
+					swapColour(FP.buffer, 0xfff6f4bb, 0xfff6f6f6);
+				}
+				if(Main.galaxy.current_dungeon_key == "x:4y:6")
+				{
+					swapColour(FP.buffer, 0xff131316, 0xff161313);
+					swapColour(FP.buffer, 0xff1e2727, 0xff221e27);
+					swapColour(FP.buffer, 0xff61221f, 0xff2a4c6f);
+					swapColour(FP.buffer, 0xff30362a, 0xff525e4a);
+					swapColour(FP.buffer, 0xff4d553e, 0xff3f6159);
+					swapColour(FP.buffer, 0xffd5ba86, 0xff76cb8e);
+					swapColour(FP.buffer, 0xfff6f4bb, 0xffc1f6bb);			
+				}				
 			}
-			if(Main.galaxy.current_dungeon_key == "x:3y:4")
-			{
-				swapColour(FP.buffer, 0xff131316, 0xff131416);
-				swapColour(FP.buffer, 0xff1e2727, 0xff21212c);
-				swapColour(FP.buffer, 0xff61221f, 0xff295f45);
-				swapColour(FP.buffer, 0xff30362a, 0xff3b2b46);
-				swapColour(FP.buffer, 0xff4d553e, 0xffb4d494);
-				swapColour(FP.buffer, 0xffd5ba86, 0xffd55570);
-				swapColour(FP.buffer, 0xfff6f4bb, 0xfff0cdf6);			
-			}
-			if(Main.galaxy.current_dungeon_key == "x:6y:6")
-			{
-				swapColour(FP.buffer, 0xff131316, 0xff141414);
-				swapColour(FP.buffer, 0xff1e2727, 0xff222222);
-				swapColour(FP.buffer, 0xff61221f, 0xff303030);
-				swapColour(FP.buffer, 0xff30362a, 0xff525252);
-				swapColour(FP.buffer, 0xff4d553e, 0xff939393);
-				swapColour(FP.buffer, 0xffd5ba86, 0xffbfbfbf);
-				swapColour(FP.buffer, 0xfff6f4bb, 0xfff6f6f6);
-			}
-			if(Main.galaxy.current_dungeon_key == "x:4y:6")
-			{
-				swapColour(FP.buffer, 0xff131316, 0xff161313);
-				swapColour(FP.buffer, 0xff1e2727, 0xff221e27);
-				swapColour(FP.buffer, 0xff61221f, 0xff2a4c6f);
-				swapColour(FP.buffer, 0xff30362a, 0xff525e4a);
-				swapColour(FP.buffer, 0xff4d553e, 0xff3f6159);
-				swapColour(FP.buffer, 0xffd5ba86, 0xff76cb8e);
-				swapColour(FP.buffer, 0xfff6f4bb, 0xffc1f6bb);			
-			}
+			fade_out.render(FP.buffer, FP.zero, FP.zero);
 		}		
 				
 		public function pack():ByteArray
