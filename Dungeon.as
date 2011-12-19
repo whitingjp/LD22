@@ -184,7 +184,7 @@ package
 						room_blocks[i].update_canmove();
 			}
 			
-			if(Main.galaxy.has_won && !fade_out)
+			if(Main.galaxy.has_won && fade_out.alpha == 0)
 				FP.tween(fade_out, {alpha: 1}, 500);
 			
 			if(Input.mousePressed && Input.mouseX < 10 && Input.mouseY < 10)
